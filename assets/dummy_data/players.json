@@ -1,0 +1,110 @@
+[
+  {
+    "name": "Erling Haaland",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/1.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Zain Dokidis",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/2.jpg",
+    "isSelected": false
+  },
+  {
+    "name": "Angel Aminoff",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/3.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Roger Dokidis",
+    "position": "Midfielder",
+    "imagePath": "https://randomuser.me/api/portraits/men/4.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Ahmad Dias",
+    "position": "Defender",
+    "imagePath": "https://randomuser.me/api/portraits/men/5.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Alfredo Dias",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/6.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Kylian Mbappe",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/7.jpg",
+    "isSelected": false
+  },
+  {
+    "name": "Kevin De Bruyne",
+    "position": "Midfielder",
+    "imagePath": "https://randomuser.me/api/portraits/men/8.jpg",
+    "isSelected": false
+  },
+  {
+    "name": "Lionel Messi",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/9.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Cristiano Ronaldo",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/10.jpg",
+    "isSelected": false
+  },
+  {
+    "name": "Neymar Jr.",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/11.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Mohamed Salah",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/12.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Sergio Ramos",
+    "position": "Defender",
+    "imagePath": "https://randomuser.me/api/portraits/men/13.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Eden Hazard",
+    "position": "Midfielder",
+    "imagePath": "https://randomuser.me/api/portraits/men/14.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Paul Pogba",
+    "position": "Midfielder",
+    "imagePath": "https://randomuser.me/api/portraits/men/15.jpg",
+    "isSelected": false
+  },
+  {
+    "name": "Zlatan Ibrahimovic",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/16.jpg",
+    "isSelected": false
+  },
+  {
+    "name": "Harry Kane",
+    "position": "Forward",
+    "imagePath": "https://randomuser.me/api/portraits/men/17.jpg",
+    "isSelected": true
+  },
+  {
+    "name": "Kasper Schmeichel",
+    "position": "Goalkeeper",
+    "imagePath": "https://randomuser.me/api/portraits/men/18.jpg",
+    "isSelected": true
+  }
+]
