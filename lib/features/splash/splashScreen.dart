@@ -56,9 +56,9 @@ class _SplashscreenState extends State<Splashscreen> {
           children: [
             // App logo
             Image.asset(
-              "assets/icons/png/logo.png",
-              width: 150,
-              height: 150,
+              "assets/images/Logo white.png",
+              width: 100,
+              height: 100,
               fit: BoxFit.contain,
             ),
 
