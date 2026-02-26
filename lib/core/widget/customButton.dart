@@ -13,7 +13,7 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.backgroundColor,
     this.textColor,
-    required this.submit
+    required this.submit,
   });
 
   @override
@@ -25,7 +25,7 @@ class CustomButton extends StatelessWidget {
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.transparent, width: 2),
+          border: Border.all(color: Color(0xff13C4D6), width: 1),
           color: backgroundColor,
         ),
         child: Center(

@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mercury/core/widget/customButton.dart';
 
-import '../../../../core/routes/route_name.dart';
-
-class SupportCenter extends StatelessWidget {
-  const SupportCenter({super.key});
+class SupportCenter1 extends StatelessWidget {
+  const SupportCenter1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +35,10 @@ class SupportCenter extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 90),
-            Image.asset("assets/images/support icon.png", height: 100),
+            Image.asset("assets/images/Success.png", height: 130),
             SizedBox(height: 32.h),
             Text(
-              "Need help",
+              "Request received.\nWe will contact you soon",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 24,
@@ -49,11 +47,11 @@ class SupportCenter extends StatelessWidget {
             ),
             SizedBox(height: 32.h),
             Text(
-              "Request a callback from our team and we'll get back to you shortly",
+              "Our support team will reach out within 24 hours",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 12,
+                fontSize: 15,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -61,16 +59,12 @@ class SupportCenter extends StatelessWidget {
             CustomButton(
               backgroundColor: Color(0xff0E93A1),
               textColor: Colors.white,
-              text: "Please Contact Me",
+              text: "Back to Home",
               submit: () {
-                Navigator.pushNamed(context, RouteNames.supportCenter1);
+                debugPrint("Please Contact Me");
               },
             ),
             SizedBox(height: 8.h),
-            Text(
-              "Available 24/7 Secure Connection",
-              textAlign: TextAlign.center,
-            ),
           ],
         ),
       ),

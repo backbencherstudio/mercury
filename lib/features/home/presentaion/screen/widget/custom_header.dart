@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/routes/route_name.dart';
+
 class CustomHeader extends StatelessWidget {
   const CustomHeader({super.key});
 
@@ -44,12 +46,17 @@ class CustomHeader extends StatelessWidget {
                   ],
                 ),
                 Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xffffffff),
-                    shape: BoxShape.circle,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteNames.rewardScreen);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xffffffff),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.asset("assets/images/gift GIF.png"),
                   ),
-                  child: Image.asset("assets/images/gift GIF.png"),
                 ),
               ],
             ),

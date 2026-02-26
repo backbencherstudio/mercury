@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../connection_request/presentaion/screen/connection_list.dart';
+import '../../../home/presentaion/screen/add_new_lead.dart';
 import '../../../home/presentaion/screen/home_screen.dart';
+import '../../../leadActivity/presentation/screen/lead_activity_screen.dart';
 import '../../../login/presentation/screen/login_screen.dart';
 import '../../../onboarding_screen/presentation/screen/onboarding_screen.dart';
 import '../riverpod/parent_screen_provider.dart';
@@ -13,9 +16,9 @@ class ParentScreen extends ConsumerWidget {
     final currentIndex = ref.watch(bottomNavProvider);
     final screens = [
       HomeScreen(),
-      LoginScreen(),
-      LoginScreen(),
-      LoginScreen(),
+      AddNewLead(),
+      LeadActivityScreen(),
+      ConnectionList(),
     ];
 
     return Scaffold(
@@ -32,28 +35,28 @@ class ParentScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _navItem(
-              icon: Icons.home,
+              icon: "assets/images/home.png",
               title: "Home",
               index: 0,
               currentIndex: currentIndex,
               ref: ref,
             ),
             _navItem(
-              icon: Icons.login,
+              icon: "assets/images/lead.png",
               title: "Lead",
               index: 1,
               currentIndex: currentIndex,
               ref: ref,
             ),
             _navItem(
-              icon: Icons.person,
+              icon: "assets/images/activity1.png",
               title: "Activity",
               index: 2,
               currentIndex: currentIndex,
               ref: ref,
             ),
             _navItem(
-              icon: Icons.person,
+              icon: "assets/images/connection.png",
               title: "Connection",
               index: 3,
               currentIndex: currentIndex,
@@ -66,7 +69,7 @@ class ParentScreen extends ConsumerWidget {
   }
 
   Widget _navItem({
-    required IconData icon,
+    required String icon,
     required String title,
     required int index,
     required int currentIndex,
@@ -89,10 +92,11 @@ class ParentScreen extends ConsumerWidget {
           ),
           child: Column(
             children: [
-              Icon(
+              Image.asset(
                 icon,
                 color: isSelected ? Colors.white : Colors.grey,
-                size: 28,
+                height: 21,
+                width: 30,
               ),
               Text(
                 title,
