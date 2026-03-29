@@ -17,4 +17,5 @@ class RouteNames {
   static const String rewardScreen = '/rewardScreen';
   static const String rewardDetails = '/rewardDetails';
   static const String supportCenter1 = '/supportCenter1';
+  static const String notificationScreen = '/notificationScreen';
 }

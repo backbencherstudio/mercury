@@ -9,6 +9,7 @@ import '../../features/home/presentaion/screen/reward_details.dart';
 import '../../features/home/presentaion/screen/reward_screen.dart';
 import '../../features/home/presentaion/screen/support_center.dart';
 import '../../features/home/presentaion/screen/support_center1.dart';
+import '../../features/home/presentaion/screen/watch_video.dart';
 import '../../features/leadActivity/presentation/screen/lead_activity_screen.dart';
 import '../../features/leadActivity/presentation/screen/more_info_screen.dart';
 import '../../features/login/presentation/screen/login_screen.dart';
@@ -33,5 +34,6 @@ class AppRoutes {
     RouteNames.rewardScreen: (context) => const RewardScreen(),
     RouteNames.rewardDetails: (context) => const RewardDetails(),
     RouteNames.supportCenter1: (context) => const SupportCenter1(),
+    RouteNames.notificationScreen: (context) => const NotificationScreen(),
   };
 }
