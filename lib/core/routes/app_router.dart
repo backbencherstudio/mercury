@@ -3,6 +3,7 @@ import 'package:mercury/core/routes/route_name.dart';
 import '../../features/connection_request/presentaion/screen/available.dart';
 import '../../features/connection_request/presentaion/screen/connection_list.dart';
 import '../../features/connection_request/presentaion/screen/connection_request.dart';
+import '../../features/connection_request/presentaion/screen/fulfil_screen.dart';
 import '../../features/home/presentaion/screen/add_new_lead.dart';
 import '../../features/home/presentaion/screen/preview_screen.dart';
 import '../../features/home/presentaion/screen/reward_details.dart';
@@ -35,5 +36,6 @@ class AppRoutes {
     RouteNames.rewardDetails: (context) => const RewardDetails(),
     RouteNames.supportCenter1: (context) => const SupportCenter1(),
     RouteNames.notificationScreen: (context) => const NotificationScreen(),
+    RouteNames.fulfilScreen: (context) => const FulfilScreen(),
   };
 }

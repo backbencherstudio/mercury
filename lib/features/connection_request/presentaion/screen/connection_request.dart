@@ -131,6 +131,7 @@ class ConnectionRequest extends StatelessWidget {
               text: "I Know Someone",
               submit: () {
                 Navigator.pushNamed(context, RouteNames.available);
+                //  Navigator.pushNamed(context, RouteNames.fulfilScreen);
               },
             ),
             SizedBox(height: 20),

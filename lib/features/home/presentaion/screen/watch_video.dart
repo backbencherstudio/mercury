@@ -48,7 +48,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // 🎬 Video Box
+                      //  Video Box
                       Container(
                         height: 160,
                         decoration: BoxDecoration(
@@ -57,7 +57,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         ),
                         child: Stack(
                           children: [
-                            // ▶️ Bottom Controls Bar
+                            //  Bottom Controls Bar
                             Positioned(
                               left: 8,
                               right: 8,
@@ -71,7 +71,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   ),
                                   const SizedBox(width: 8),
 
-                                  // ⏱ Progress bar
+                                  //  Progress bar
                                   Expanded(
                                     child: LinearProgressIndicator(
                                       value: 0.3,
@@ -82,7 +82,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
                                   const SizedBox(width: 8),
 
-                                  // 🕒 Time
+                                  //  Time
                                   const Text(
                                     "1:12:22",
                                     style: TextStyle(
@@ -93,7 +93,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
                                   const SizedBox(width: 8),
 
-                                  // 🔊 Volume
+                                  //  Volume
                                   const Icon(
                                     Icons.volume_down_outlined,
                                     color: Colors.white,
@@ -102,7 +102,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
                                   const SizedBox(width: 6),
 
-                                  // 🔤 CC
+                                  //  CC
                                   const Icon(
                                     Icons.closed_caption_off_rounded,
                                     color: Colors.white,
