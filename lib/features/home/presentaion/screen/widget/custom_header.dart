@@ -58,6 +58,41 @@ class CustomHeader extends StatelessWidget {
                     child: Image.asset("assets/images/gift GIF.png"),
                   ),
                 ),
+                SizedBox(width: 16),
+
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteNames.rewardScreen);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: const BoxDecoration(
+                      color: Color(0xffffffff),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        const Icon(
+                          Icons.notifications,
+                          color: Color(0xff11BECF),
+                        ),
+                        Positioned(
+                          top: -2,
+                          right: -2,
+                          child: Container(
+                            height: 10,
+                            width: 10,
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
 

@@ -108,7 +108,7 @@ class LoginScreen extends StatelessWidget {
               text: "Login",
               submit: () {
 
-                Navigator.pushNamed(context, RouteNames.onboardingScreen);
+                Navigator.pushNamed(context, RouteNames.parentScreen);
               },
               backgroundColor: Color(0xff0E93A1),
               textColor: Colors.white,

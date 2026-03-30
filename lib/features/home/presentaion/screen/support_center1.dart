@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mercury/core/routes/route_name.dart';
 import 'package:mercury/core/widget/customButton.dart';
 
 class SupportCenter1 extends StatelessWidget {
@@ -61,7 +62,7 @@ class SupportCenter1 extends StatelessWidget {
               textColor: Colors.white,
               text: "Back to Home",
               submit: () {
-                debugPrint("Please Contact Me");
+               Navigator.pushNamed(context, RouteNames.notificationScreen);
               },
             ),
             SizedBox(height: 8.h),
