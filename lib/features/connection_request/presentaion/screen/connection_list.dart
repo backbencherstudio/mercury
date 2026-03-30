@@ -45,7 +45,21 @@ class ConnectionList extends StatelessWidget {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Transform.translate(
+            offset: Offset(10, 0),
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color(0xffE9E9EA),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.arrow_back, color: Colors.black),
+            ),
+          ),
+        ),
         title: const Text(
           "Connection Request",
           style: TextStyle(color: Colors.black),
@@ -61,8 +75,11 @@ class ConnectionList extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.symmetric(vertical: 7, horizontal: 16),
                 child: GestureDetector(
-                  onTap: ()async{
-                    await Navigator.pushNamed(context, RouteNames.connectionRequest);
+                  onTap: () async {
+                    await Navigator.pushNamed(
+                      context,
+                      RouteNames.connectionRequest,
+                    );
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 19, horizontal: 15),

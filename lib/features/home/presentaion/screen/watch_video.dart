@@ -2,20 +2,33 @@ import 'package:flutter/material.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
-
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
   int? selectedIndex;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_back),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Transform.translate(
+            offset: Offset(10, 0),
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color(0xffE9E9EA),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.arrow_back, color: Colors.black),
+            ),
+          ),
+        ),
+        centerTitle: true,
         title: const Text("Watch Video"),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -99,20 +112,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                     color: Colors.white,
                                     size: 18,
                                   ),
-
-                                  const SizedBox(width: 6),
-
-                                  //  CC
-                                  const Icon(
+                                  SizedBox(width: 6),
+                                  Icon(
                                     Icons.closed_caption_off_rounded,
                                     color: Colors.white,
                                     size: 18,
                                   ),
+                                  SizedBox(width: 6),
 
-                                  const SizedBox(width: 6),
-
-                                  // ⛶ Fullscreen
-                                  const Icon(
+                                  Icon(
                                     Icons.fullscreen,
                                     color: Colors.white,
                                     size: 18,

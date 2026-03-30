@@ -16,7 +16,21 @@ class ConnectionRequest extends StatelessWidget {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Transform.translate(
+            offset: Offset(10, 0),
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color(0xffE9E9EA),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.arrow_back, color: Colors.black),
+            ),
+          ),
+        ),
         title: const Text(
           "Connection Request",
           style: TextStyle(color: Colors.black),
@@ -122,9 +136,7 @@ class ConnectionRequest extends StatelessWidget {
                 ],
               ),
             ),
-
             SizedBox(height: 60.h),
-
             CustomButton(
               backgroundColor: Color(0xff0F9DAB),
               textColor: Colors.white,
@@ -139,7 +151,9 @@ class ConnectionRequest extends StatelessWidget {
               backgroundColor: Color(0xffffffff),
               textColor: Color(0xff13C4D6),
               text: "I Don't know Someone",
-              submit: () {},
+              submit: () {
+                Navigator.pushNamed(context, RouteNames.fulfilScreen);
+              },
             ),
           ],
         ),
