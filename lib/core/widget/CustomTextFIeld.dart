@@ -14,7 +14,6 @@ class CustomTextField extends StatefulWidget {
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
-
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
@@ -25,14 +24,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextFormField(
       controller: widget.controller,
       obscureText: widget.isPassword ? _obscureText : false,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         filled: true,
         fillColor: const Color(0xffF9FAFB),
         hintText: widget.hintText,
         hintStyle: const TextStyle(color: Color(0xff777980)),
 
-        // eye icon
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(
@@ -46,7 +44,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 },
               )
             : null,
-
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Color(0xffE9E9EA)),

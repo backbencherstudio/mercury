@@ -5,15 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/routes/app_router.dart';
 import 'core/routes/route_name.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
@@ -27,17 +22,13 @@ class MyApp extends ConsumerWidget {
       designSize: const Size(375, 812),
       builder: (_, __) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-        ),
+        theme: ThemeData(scaffoldBackgroundColor: Colors.white),
         initialRoute: RouteNames.splashScreen,
         routes: AppRoutes.routes,
         onUnknownRoute: (settings) {
           return MaterialPageRoute(
             builder: (context) => Scaffold(
-              appBar: AppBar(
-                title: const Text('Route Error'),
-              ),
+              appBar: AppBar(title: const Text('Route Error')),
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +39,7 @@ class MyApp extends ConsumerWidget {
                       onPressed: () {
                         Navigator.of(context).pushNamedAndRemoveUntil(
                           RouteNames.splashScreen,
-                              (route) => false,
+                          (route) => false,
                         );
                       },
 
