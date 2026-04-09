@@ -16,6 +16,7 @@ import '../../features/leadActivity/presentation/screen/more_info_screen.dart';
 import '../../features/login/presentation/screen/login_screen.dart';
 import '../../features/onboarding_screen/presentation/screen/onboarding_screen.dart';
 import '../../features/parent/presentation/screen/parent_screen.dart';
+import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/splash/splashScreen.dart';
 
 class AppRoutes {
@@ -37,5 +38,6 @@ class AppRoutes {
     RouteNames.supportCenter1: (context) => const SupportCenter1(),
     RouteNames.notificationScreen: (context) => const NotificationScreen(),
     RouteNames.fulfilScreen: (context) => const FulfilScreen(),
+    RouteNames.profileScreen: (context) => const ProfileScreen(),
   };
 }
