@@ -23,13 +23,22 @@ class CustomHeader extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  padding: EdgeInsets.all(9),
-                  decoration: BoxDecoration(
-                    color: Color(0xffffffff),
-                    shape: BoxShape.circle,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteNames.profileScreen);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(9),
+                    decoration: BoxDecoration(
+                      color: Color(0xffffffff),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.person,
+                      size: 40,
+                      color: Color(0xff14C4D6),
+                    ),
                   ),
-                  child: Icon(Icons.person, size: 40, color: Color(0xff14C4D6)),
                 ),
                 const SizedBox(width: 16),
                 Column(
