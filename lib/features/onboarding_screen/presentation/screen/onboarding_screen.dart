@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mercury/core/widget/customButton.dart';
+import 'package:mercury/core/widget/custom_button.dart';
 
 import '../../../../core/routes/route_name.dart';
 

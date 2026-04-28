@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mercury/core/widget/customButton.dart';
+import 'package:mercury/core/widget/custom_button.dart';
 
 import '../../../../core/routes/route_name.dart';
 

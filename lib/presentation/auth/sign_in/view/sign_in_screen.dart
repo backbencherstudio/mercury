@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mercury/core/routes/route_name.dart';
 import '../../../../core/widget/custom_text_field.dart';
 import '../../../../core/widget/custom_button.dart';
+import '../../../../core_copy/route/route_name.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,8 @@ class LoginScreen extends StatelessWidget {
             ),
 
             SizedBox(height: 8.h),
-            Text("Licensed Contactor Network",
+            Text(
+              "Licensed Contactor Network",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16.sp,
@@ -34,7 +35,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 20.h,),
+            SizedBox(height: 20.h),
 
             Align(
               alignment: Alignment.centerLeft,
@@ -47,7 +48,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 4,),
+            SizedBox(height: 4),
 
             CustomTextField(hintText: "Enter your email address"),
 
@@ -63,11 +64,8 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 4,),
-            CustomTextField(
-              hintText: "Enter your password",
-              isPassword: true,
-            ),
+            SizedBox(height: 4),
+            CustomTextField(hintText: "Enter your password", isPassword: true),
 
             SizedBox(height: 20.h),
             Row(
@@ -107,14 +105,13 @@ class LoginScreen extends StatelessWidget {
             CustomButton(
               text: "Login",
               submit: () {
-
-                Navigator.pushNamed(context, RouteNames.parentScreen);
+                Navigator.pushNamed(context, RouteName.bottomNavScreen);
               },
               backgroundColor: Color(0xff0E93A1),
               textColor: Colors.white,
             ),
 
-            SizedBox(height: 30.h,),
+            SizedBox(height: 30.h),
             Text(
               "Forgot password",
               style: TextStyle(

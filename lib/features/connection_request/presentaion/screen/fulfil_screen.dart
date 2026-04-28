@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/widget/customButton.dart';
+import '../../../../core/widget/custom_button.dart';
 
 class FulfilScreen extends StatelessWidget {
   const FulfilScreen({super.key});
