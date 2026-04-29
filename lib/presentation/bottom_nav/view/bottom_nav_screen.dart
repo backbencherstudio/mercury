@@ -113,7 +113,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core_copy/constansts/color_manger.dart';
+import '../../../core/constansts/color_manger.dart';
 import '../../activity/view/activity_screen.dart';
 import '../../connection/view/connection_screen.dart';
 import '../../home/view/home_screen.dart';

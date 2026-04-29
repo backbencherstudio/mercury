@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/custom_button.dart';
-import '../../../core_copy/route/route_name.dart';
+import '../../../core/route/route_name.dart';
 
 class LeadScreen extends StatefulWidget {
   const LeadScreen({super.key});

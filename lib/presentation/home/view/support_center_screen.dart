@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mercury/presentation/widgets/custom_button.dart';
 
-import '../../../core_copy/route/route_name.dart';
+import '../../../core/route/route_name.dart';
 
 class SupportCenterScreen extends StatelessWidget {
   const SupportCenterScreen({super.key});

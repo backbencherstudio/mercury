@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../../data/sources/local/shared_preference/shared_preference.dart';
-import '../network/api_endpoints.dart';
-import '../network/error_handle.dart';
-import '../network/respose_handle.dart';
+import 'api_endpoints.dart';
+import 'error_handle.dart';
+import 'respose_handle.dart';
 
 class ApiClient {
   static final Dio _dio = Dio(

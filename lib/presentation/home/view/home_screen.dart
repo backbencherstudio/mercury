@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mercury/presentation/home/view/widget/custom_header.dart';
-import '../../../core_copy/route/route_name.dart';
+import '../../../core/route/route_name.dart';
 import '../../bottom_nav/viewmodel/bottom_nav_provider.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/custom_button.dart';
-import '../../../core_copy/route/route_name.dart';
+import '../../../core/route/route_name.dart';
 
 class RewardScreen extends StatelessWidget {
   const RewardScreen({super.key});

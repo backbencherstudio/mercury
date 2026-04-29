@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core_copy/route/route_name.dart';
+import '../../../../core/route/route_name.dart';
 
 class CustomHeader extends StatelessWidget {
   const CustomHeader({super.key});

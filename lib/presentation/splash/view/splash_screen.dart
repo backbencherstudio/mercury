@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core_copy/route/route_name.dart';
+import 'package:mercury/core/constansts/color_manger.dart';
+import '../../../core/resource/style_manager.dart';
+import '../../../core/route/route_name.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,16 +13,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool showText = false;
-
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        showText = true;
-      });
-    });
     _navigateToNextScreen();
   }
 
@@ -41,29 +36,30 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // App logo
-            Image.asset(
-              "assets/images/Logo white.png",
-              width: 100.h,
-              height: 100.w,
-              fit: BoxFit.contain,
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 13.h, horizontal: 24.w),
+              decoration: BoxDecoration(
+                color: ColorManager.whiteColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                'A',
+                style: getMedium500Style12(
+                  color: ColorManager.backgroundColor,
+                  fontSize: 40.sp,
+                ),
+              ),
             ),
 
-            const SizedBox(height: 20),
+            20.verticalSpace,
             Text(
               "Agua Leads",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 32.sp,
-              ),
+              style: getSemiBold600Style32(color: ColorManager.whiteColor),
             ),
+            8.verticalSpace,
             Text(
               "Licensed Contractor Network",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 16.sp,
-              ),
+              style: getMedium500Style16(color: ColorManager.whiteColor),
             ),
           ],
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core_copy/route/route_name.dart';
+import '../../../core/route/route_name.dart';
 
 class ConnectionScreen extends StatelessWidget {
   const ConnectionScreen({super.key});

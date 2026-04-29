@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constansts/color_manger.dart';
 import 'font_manager.dart';
@@ -105,43 +106,31 @@ ThemeData getApplicationTheme() {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: ColorManager.whiteColor,
-      hintStyle: getRegular400Style12(color: ColorManager.textSecondary),
+      hintStyle: getRegular400Style12(color: ColorManager.black300),
       labelStyle: getMedium500Style12(color: ColorManager.blackColor),
       helperStyle: getRegular400Style12(color: ColorManager.blackColor),
       errorStyle: getRegular400Style12(color: ColorManager.errorColor),
-      contentPadding: const EdgeInsets.all(AppPadding.p12),
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
 
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: ColorManager.borderColor,
-          width: AppSize.s1_5,
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderSide: BorderSide(color: ColorManager.borderColor, width: 1),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: ColorManager.borderColor1,
-          width: AppSize.s1_5,
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderSide: BorderSide(color: ColorManager.backgroundColor, width: 1),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: ColorManager.errorColor,
-          width: AppSize.s1_5,
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderSide: BorderSide(color: ColorManager.errorColor, width: 1),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: ColorManager.errorColor,
-          width: AppSize.s1_5,
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+        borderSide: BorderSide(color: ColorManager.errorColor, width: 1),
+        borderRadius: BorderRadius.circular(12.r),
       ),
     ),
 
     // ===== Icon Theme =====
-    iconTheme: IconThemeData(color: ColorManager.primary, size: AppSize.s24),
+    iconTheme: IconThemeData(color: ColorManager.primary, size: 24.r),
   );
 }

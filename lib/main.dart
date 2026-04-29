@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mercury/core_copy/route/route_import_part.dart';
-import 'core_copy/resource/theme_manager.dart';
-import 'core_copy/route/route_name.dart';
+import 'package:mercury/core/route/route_import_part.dart';
+import 'core/resource/theme_manager.dart';
+import 'core/route/route_name.dart';
 
 // Future<void> main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
