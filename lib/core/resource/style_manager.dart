@@ -79,6 +79,15 @@ TextStyle getRegular400Style16({
 }) {
   return _getTextStyle(fontSize, fontFamily, fontWeight, color, height);
 }
+TextStyle getRegular400Style18({
+  double fontSize = FontSize.s18,
+  FontWeight fontWeight = FontWeightManager.regular400,
+  required Color color,
+  String fontFamily = FontConstants.fontFamily,
+  double height = 1.2,
+}) {
+  return _getTextStyle(fontSize, fontFamily, fontWeight, color, height);
+}
 
 //mediun text style
 TextStyle getMedium500Style14({

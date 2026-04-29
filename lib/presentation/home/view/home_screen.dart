@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mercury/presentation/home/view/widget/custom_header.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mercury/core/constansts/color_manger.dart';
+import 'package:mercury/core/resource/style_manager.dart';
+import '../../../core/constansts/icon_manager.dart';
 import '../../../core/route/route_name.dart';
 import '../../bottom_nav/viewmodel/bottom_nav_provider.dart';
+import '../../widgets/custom_network_image.dart';
+import '../model/home_menu_model.dart';
+import 'widget/custom_home_card.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -14,123 +22,169 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> data = [
-      {
-        "image": "assets/images/add new lead icon.png",
-        "title": "Add New Lead",
-        "subtitle": "Submit leads here",
-      },
-      {
-        "image": "assets/images/activity.png",
-        "title": "Lead Activity",
-        "subtitle": "See all activities",
-      },
-      {
-        "image": "assets/images/connection request icon.png",
-        "title": "Connection Request",
-        "subtitle": "Send Connection Request",
-      },
-      {
-        "image": "assets/images/connection request icon.png",
-        "title": "Watch Videos",
-        "subtitle": "Watch Instructional Videos",
-      },
-    ];
-    return Scaffold(
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 90),
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, RouteName.supportCenterScreen);
-          },
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: Image.asset(
-            "assets/images/supporrt.png",
-            height: 70,
-            width: 70,
-          ),
-        ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light, // icons color
+        statusBarBrightness: Brightness.dark, // for iOS
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-
-      body: Column(
-        children: [
-          CustomHeader(),
-          ListView.builder(
-            itemCount: data.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 7,
-                  horizontal: 20,
+      child: Scaffold(
+        body: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + 16.h,
+                bottom: 20.h,
+                left: 20.w,
+                right: 20.w,
+              ),
+              decoration: BoxDecoration(
+                color: ColorManager.backgroundColor,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(12.r),
+                  bottomRight: Radius.circular(12.r),
                 ),
-                child: GestureDetector(
-                  onTap: () {
-                    if (data[index]['title'] == "Add New Lead") {
-                      ref.read(bottomNavIndexProvider.notifier).setIndex(1);
-                      //Navigator.pushNamed(context, RouteNames.addNewLead);
-                    } else if (data[index]['title'] == "Lead Activity") {
-                      ref.read(bottomNavIndexProvider.notifier).setIndex(2);
-                      // Navigator.pushNamed(context, RouteNames.leadActivity);
-                    } else if (data[index]['title'] == "Connection Request") {
-                      ref.read(bottomNavIndexProvider.notifier).setIndex(3);
-                      //   Navigator.pushNamed(context, RouteNames.connectionRequest);
-                    } else if (data[index]['title'] == "Watch Videos") {
-                      Navigator.pushNamed(context, RouteName.watchVideoScreen);
-                    }
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(16),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      CustomNetworkImage(
+                        imageUrl: IconManager.networkProfile,
+                        height: 48.h,
+                        width: 48.w,
+                        borderRadius: 100.r,
+                      ),
+
+                      8.horizontalSpace,
+                      Column(
+                        children: [
+                          Text(
+                            'James Clerk',
+                            style: getRegular400Style18(
+                              color: ColorManager.whiteColor,
+                            ),
+                          ),
+                          4.verticalSpace,
+                          Text(
+                            'Profile #AP-12345',
+                            style: getRegular400Style12(
+                              color: ColorManager.whiteColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      Container(
+                        padding: EdgeInsets.all(10.r),
+                        decoration: BoxDecoration(
+                          color: ColorManager.whiteColor,
+                          borderRadius: BorderRadius.circular(100.r),
+                        ),
+                        child: Image.asset(
+                          IconManager.giftBox,
+                          height: 24.h,
+                          width: 24.w,
+                        ),
+                      ),
+                      16.horizontalSpace,
+                      Container(
+                        padding: EdgeInsets.all(10.r),
+                        decoration: BoxDecoration(
+                          color: ColorManager.whiteColor,
+                          borderRadius: BorderRadius.circular(100.r),
+                        ),
+                        child: Image.asset(
+                          IconManager.notification,
+                          height: 24.h,
+                          width: 24.w,
+                          color: ColorManager.backgroundDark,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  24.verticalSpace,
+                  Container(
+                    padding: EdgeInsets.all(8.r),
                     decoration: BoxDecoration(
-                      color: Color(0xffF6F8FA),
-                      borderRadius: BorderRadius.circular(16),
+                      color: ColorManager.whiteColor.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Color(0xffDCF6F9),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Image.asset(
-                            data[index]["image"],
-                            height: 50,
-                            width: 50,
-                          ),
+                        SvgPicture.asset(
+                          IconManager.warning,
+                          height: 20.h,
+                          width: 20.w,
                         ),
-                        SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              data[index]['title'],
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                              ),
-                            ),
-                            Text(data[index]['subtitle']),
-                          ],
-                        ),
-
-                        Spacer(),
-                        Image.asset(
-                          "assets/images/arrow white icon.png",
-                          color: Colors.black,
-                          height: 25,
+                        10.horizontalSpace,
+                        Text(
+                          "Share this Profile Number when contacting\nsupport so we can find your profile fast.",
+                          style: getRegular400Style12(
+                            color: ColorManager.whiteColor,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              );
+                ],
+              ),
+            ),
+            20.verticalSpace,
+            ListView.separated(
+              padding: EdgeInsets.zero,
+              itemCount: homeMenuList.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final menu = homeMenuList[index];
+                return GestureDetector(
+                  onTap: () {
+                    if (index == 0) {
+                      ref.read(bottomNavIndexProvider.notifier).setIndex(1);
+                    } else if (index == 1) {
+                      ref.read(bottomNavIndexProvider.notifier).setIndex(2);
+                    } else if (index == 2) {
+                      ref.read(bottomNavIndexProvider.notifier).setIndex(3);
+                    } else if (index == 3) {
+                      Navigator.pushNamed(context, RouteName.watchVideoScreen);
+                    }
+                  },
+                  child: CustomHomeCard(
+                    icon: menu.icon,
+                    title: menu.title,
+                    description: menu.subtitle,
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Padding(padding: EdgeInsets.symmetric(vertical: 8.h));
+              },
+            ),
+          ],
+        ),
+
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 90),
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, RouteName.supportCenterScreen);
             },
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            child: Image.asset(
+              "assets/images/supporrt.png",
+              height: 120.h,
+              width: 120.w,
+            ),
           ),
-        ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );
   }
