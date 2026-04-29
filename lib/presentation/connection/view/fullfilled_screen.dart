@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../core/widget/custom_button.dart';
+import '../../widgets/custom_button.dart';
 
-class FulfilScreen extends StatelessWidget {
-  const FulfilScreen({super.key});
+class FullfilledScreen extends StatelessWidget {
+  const FullfilledScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

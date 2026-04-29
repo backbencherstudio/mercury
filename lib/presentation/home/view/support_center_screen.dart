@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mercury/core/routes/route_name.dart';
-import 'package:mercury/core/widget/custom_button.dart';
+import 'package:mercury/presentation/widgets/custom_button.dart';
 
-class SupportCenter1 extends StatelessWidget {
-  const SupportCenter1({super.key});
+import '../../../core_copy/route/route_name.dart';
+
+class SupportCenterScreen extends StatelessWidget {
+  const SupportCenterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +36,10 @@ class SupportCenter1 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 90),
-            Image.asset("assets/images/Success.png", height: 130),
+            Image.asset("assets/images/support icon.png", height: 100),
             SizedBox(height: 32.h),
             Text(
-              "Request received.\nWe will contact you soon",
+              "Need help?",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 24,
@@ -48,11 +48,11 @@ class SupportCenter1 extends StatelessWidget {
             ),
             SizedBox(height: 32.h),
             Text(
-              "Our support team will reach out within 24 hours",
+              "Request a callback from our team and we'll get back to you shortly",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 15,
+                fontSize: 12,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -60,12 +60,16 @@ class SupportCenter1 extends StatelessWidget {
             CustomButton(
               backgroundColor: Color(0xff0E93A1),
               textColor: Colors.white,
-              text: "Back to Home",
+              text: "Please Contact Me",
               submit: () {
-               Navigator.pushNamed(context, RouteNames.notificationScreen);
+                Navigator.pushNamed(context, RouteName.supportCenterRequestScreen);
               },
             ),
             SizedBox(height: 8.h),
+            Text(
+              "Available 24/7 Secure Connection",
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),

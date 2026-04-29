@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mercury/core/widget/custom_button.dart';
+import 'package:mercury/presentation/widgets/custom_button.dart';
+import '../../../core_copy/route/route_name.dart';
 
-import '../../../../core/routes/route_name.dart';
-
-class ConnectionRequest extends StatelessWidget {
-  const ConnectionRequest({super.key});
+class ConnectionRequestScreen extends StatelessWidget {
+  const ConnectionRequestScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -142,8 +140,7 @@ class ConnectionRequest extends StatelessWidget {
               textColor: Colors.white,
               text: "I Know Someone",
               submit: () {
-                Navigator.pushNamed(context, RouteNames.available);
-                //  Navigator.pushNamed(context, RouteNames.fulfilScreen);
+                Navigator.pushNamed(context, RouteName.availableScreen);
               },
             ),
             SizedBox(height: 20),
@@ -152,7 +149,7 @@ class ConnectionRequest extends StatelessWidget {
               textColor: Color(0xff13C4D6),
               text: "I Don't know Someone",
               submit: () {
-                Navigator.pushNamed(context, RouteNames.fulfilScreen);
+                Navigator.pushNamed(context, RouteName.fullfilledScreen);
               },
             ),
           ],

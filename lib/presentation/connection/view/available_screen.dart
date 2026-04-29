@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../core/widget/custom_button.dart';
+import '../../widgets/custom_button.dart';
 
-class Available extends StatelessWidget {
-  const Available({super.key});
+class AvailableScreen extends StatelessWidget {
+  const AvailableScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

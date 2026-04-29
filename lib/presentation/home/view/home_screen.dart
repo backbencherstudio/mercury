@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mercury/presentation/home/view/widget/custom_header.dart';
+import '../../../core_copy/route/route_name.dart';
+import '../../bottom_nav/viewmodel/bottom_nav_provider.dart';
 
-import '../../../core/routes/route_name.dart';
-
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> data = [
@@ -24,13 +30,18 @@ class HomeScreen extends StatelessWidget {
         "title": "Connection Request",
         "subtitle": "Send Connection Request",
       },
+      {
+        "image": "assets/images/connection request icon.png",
+        "title": "Watch Videos",
+        "subtitle": "Watch Instructional Videos",
+      },
     ];
     return Scaffold(
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 90),
         child: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, RouteNames.supportCenter);
+            Navigator.pushNamed(context, RouteName.supportCenterScreen);
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -59,11 +70,16 @@ class HomeScreen extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     if (data[index]['title'] == "Add New Lead") {
-                      Navigator.pushNamed(context, RouteNames.addNewLead);
+                      ref.read(bottomNavIndexProvider.notifier).setIndex(1);
+                      //Navigator.pushNamed(context, RouteNames.addNewLead);
                     } else if (data[index]['title'] == "Lead Activity") {
+                      ref.read(bottomNavIndexProvider.notifier).setIndex(2);
                       // Navigator.pushNamed(context, RouteNames.leadActivity);
                     } else if (data[index]['title'] == "Connection Request") {
+                      ref.read(bottomNavIndexProvider.notifier).setIndex(3);
                       //   Navigator.pushNamed(context, RouteNames.connectionRequest);
+                    } else if (data[index]['title'] == "Watch Videos") {
+                      Navigator.pushNamed(context, RouteName.watchVideoScreen);
                     }
                   },
                   child: Container(

@@ -1,17 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mercury/core/routes/route_name.dart';
-import 'package:mercury/core/widget/custom_button.dart';
+import 'package:mercury/presentation/widgets/custom_button.dart';
+import '../../../core_copy/route/route_name.dart';
 
-class LeadActivityScreen extends StatefulWidget {
-  const LeadActivityScreen({super.key});
+class ActivityScreen extends StatefulWidget {
+  const ActivityScreen({super.key});
 
   @override
-  State<LeadActivityScreen> createState() => _LeadActivityScreenState();
+  State<ActivityScreen> createState() => _ActivityScreenState();
 }
 
-class _LeadActivityScreenState extends State<LeadActivityScreen> {
+class _ActivityScreenState extends State<ActivityScreen> {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> data = [
@@ -63,7 +62,7 @@ class _LeadActivityScreenState extends State<LeadActivityScreen> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: DropdownButtonFormField<String>(
-              value: selectedMonth,
+              initialValue: selectedMonth,
               icon: const Icon(
                 Icons.keyboard_arrow_down_rounded,
                 color: Color(0xffE9E9EA),
@@ -141,7 +140,10 @@ class _LeadActivityScreenState extends State<LeadActivityScreen> {
             textColor: Colors.white,
             text: "More Info",
             submit: () async {
-              await Navigator.pushNamed(context, RouteNames.moreInfoScreen);
+              await Navigator.pushNamed(
+                context,
+                RouteName.moreLeadActivityScreen,
+              );
             },
           ),
         ],

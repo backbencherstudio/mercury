@@ -1,12 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../widgets/custom_button.dart';
+import '../../../core_copy/route/route_name.dart';
 
-import '../../../../core/routes/route_name.dart';
-import '../../../../core/widget/custom_button.dart';
-
-class RewardScreen extends StatelessWidget {
+class RewardScreen extends ConsumerStatefulWidget {
   const RewardScreen({super.key});
 
+  @override
+  ConsumerState<RewardScreen> createState() => _RewardScreenState();
+}
+
+class _RewardScreenState extends ConsumerState<RewardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +48,7 @@ class RewardScreen extends StatelessWidget {
               textColor: Colors.white,
               text: "See What's inside",
               submit: () {
-                Navigator.pushNamed(context, RouteNames.rewardDetails);
-
+                Navigator.pushNamed(context, RouteName.rewardDetailScreen);
               },
             ),
           ],

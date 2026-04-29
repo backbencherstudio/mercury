@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MoreInfoScreen extends StatelessWidget {
-  const MoreInfoScreen({super.key});
+class MoreLeadActivityScreen extends StatelessWidget {
+  const MoreLeadActivityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,12 @@ class MoreInfoScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(Icons.arrow_back, color: Colors.black),
+        ),
         title: const Text(
           "Lead Activity",
           style: TextStyle(color: Colors.black),

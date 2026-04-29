@@ -1,7 +1,4 @@
-import '../models/user_model.dart';
 import '../sources/remote/user_api_service.dart';
-
-
 
 class UserRepository {
   final UserApiService remoteSource;

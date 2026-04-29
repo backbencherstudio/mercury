@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../../core_copy/route/route_name.dart';
 
-import '../../../../core/routes/route_name.dart';
-
-class ConnectionList extends StatelessWidget {
-  const ConnectionList({super.key});
+class ConnectionScreen extends StatelessWidget {
+  const ConnectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +77,7 @@ class ConnectionList extends StatelessWidget {
                   onTap: () async {
                     await Navigator.pushNamed(
                       context,
-                      RouteNames.connectionRequest,
+                      RouteName.connectionRequestScreen,
                     );
                   },
                   child: Container(

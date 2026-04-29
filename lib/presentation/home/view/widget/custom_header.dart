@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../core/routes/route_name.dart';
+import '../../../../core_copy/route/route_name.dart';
 
 class CustomHeader extends StatelessWidget {
   const CustomHeader({super.key});
@@ -25,7 +23,7 @@ class CustomHeader extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, RouteNames.profileScreen);
+                    Navigator.pushNamed(context, RouteName.profileScreen);
                   },
                   child: Container(
                     padding: EdgeInsets.all(9),
@@ -57,7 +55,7 @@ class CustomHeader extends StatelessWidget {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, RouteNames.rewardScreen);
+                    Navigator.pushNamed(context, RouteName.rewardScreen);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -71,7 +69,7 @@ class CustomHeader extends StatelessWidget {
 
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, RouteNames.rewardScreen);
+                    Navigator.pushNamed(context, RouteName.notificationScreen);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),

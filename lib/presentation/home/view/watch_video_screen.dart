@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({super.key});
+class WatchVideoScreen extends StatefulWidget {
+  const WatchVideoScreen({super.key});
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  State<WatchVideoScreen> createState() => _WatchVideoScreenState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class _WatchVideoScreenState extends State<WatchVideoScreen> {
   int? selectedIndex;
   @override
   Widget build(BuildContext context) {
@@ -171,17 +171,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               index == 0
                                   ? "Introduction to Aqua Lead"
                                   : "How to do a meeting",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: Color(0xff13C0D2),
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            const SizedBox(height: 4),
+                            SizedBox(height: 4),
                             Text(
                               index == 0
                                   ? "This video contains on how to use this app. You will find detail direction on this video."
                                   : "Here's how to do a meeting. Please watch the video completely to understand how to do it.",
-                              style: const TextStyle(fontSize: 12),
+                              style: TextStyle(fontSize: 12),
                             ),
                           ],
                         ),

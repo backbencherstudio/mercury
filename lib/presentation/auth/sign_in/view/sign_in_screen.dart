@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/widget/custom_text_field.dart';
-import '../../../../core/widget/custom_button.dart';
+import '../../../widgets/custom_text_field.dart';
+import '../../../widgets/custom_button.dart';
 import '../../../../core_copy/route/route_name.dart';
 
 class SignInScreen extends StatelessWidget {
