@@ -12,12 +12,12 @@ class CustomHomeCard extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.description,
-    this.isSelected,
+    required this.isSelected,
   });
   final String icon;
   final String title;
   final String description;
-  final bool? isSelected;
+  final bool isSelected;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,7 +25,9 @@ class CustomHomeCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 20.h),
         decoration: BoxDecoration(
-          color: ColorManager.backgroundNormal,
+          color: isSelected
+              ? ColorManager.backgroundColor
+              : ColorManager.backgroundNormal,
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(color: ColorManager.borderColor),
         ),
@@ -42,7 +44,9 @@ class CustomHomeCard extends StatelessWidget {
                 height: 32.h,
                 width: 32.w,
                 colorFilter: ColorFilter.mode(
-                  ColorManager.black500,
+                  isSelected
+                      ? ColorManager.backgroundDark
+                      : ColorManager.black500,
                   BlendMode.srcIn,
                 ),
               ),
@@ -53,12 +57,20 @@ class CustomHomeCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: getMedium500Style18(color: ColorManager.black500),
+                  style: getMedium500Style18(
+                    color: isSelected
+                        ? ColorManager.whiteColor
+                        : ColorManager.black500,
+                  ),
                 ),
                 6.verticalSpace,
                 Text(
                   description,
-                  style: getRegular400Style12(color: ColorManager.black400),
+                  style: getRegular400Style12(
+                    color: isSelected
+                        ? ColorManager.whiteColor
+                        : ColorManager.black400,
+                  ),
                 ),
               ],
             ),
@@ -69,7 +81,7 @@ class CustomHomeCard extends StatelessWidget {
               height: 20.h,
               width: 20.w,
               colorFilter: ColorFilter.mode(
-                ColorManager.black500,
+                isSelected ? ColorManager.whiteColor : ColorManager.black500,
                 BlendMode.srcIn,
               ),
             ),
