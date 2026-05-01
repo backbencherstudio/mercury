@@ -15,11 +15,13 @@ class ColorManager {
   static const Color backgroundDark = Color(0xFF0E93A1);
   static const Color backgroundNormal = Color(0xffF6F8FA);
   static const Color backgroundLight = Color(0xffDCF6F9);
+  static const Color backgroundContainer = Color(0xffECF5F7);
   static const Color scaffoldDark = Color(0xFF1E1E1E);
 
   // ===== Text Colors =====
   static const Color textPrimary = Color(0xFF212121);
   static const Color textSecondary = Color(0xFF757575);
+  static const Color black50 = Color(0xffE9E9EA);
   static const Color black300 = Color(0xFF777980);
   static const Color black400 = Color(0xFF4A4C56);
   static const Color black500 = Color(0xFF1D1F2C);
@@ -28,6 +30,7 @@ class ColorManager {
   static const Color subtitleText = Color(0xFF686868);
   static const Color subtitleText1 = Color(0xFF60655C);
   static const Color mediumText = Color(0xFF363A33);
+  static const Color blueText = Color(0xFF13C0D2);
 
   // ===== Button & Label Colors =====
   static const Color buttonText = Color(0xFF334289);
@@ -41,6 +44,7 @@ class ColorManager {
   // ===== Border Colors =====
   static const Color borderColor = Color(0xffE9E9EA);
   static const Color borderColor1 = Color(0xFF00136B);
+  static const Color borderColor2 = Color(0xffC1E5EA);
 
   // ===== Container & Fill Colors =====
   static const Color containerColor = Color(0xFFEFEFEF);

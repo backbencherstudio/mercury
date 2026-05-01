@@ -10,6 +10,7 @@ import '../../../core/route/route_name.dart';
 import '../../bottom_nav/viewmodel/bottom_nav_provider.dart';
 import '../../widgets/custom_network_image.dart';
 import '../model/home_menu_model.dart';
+import '../viewmodel/home_screen_provider.dart';
 import 'widget/custom_home_card.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -22,6 +23,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(stateHome);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -77,30 +79,43 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ],
                       ),
                       Spacer(),
-                      Container(
-                        padding: EdgeInsets.all(10.r),
-                        decoration: BoxDecoration(
-                          color: ColorManager.whiteColor,
-                          borderRadius: BorderRadius.circular(100.r),
-                        ),
-                        child: Image.asset(
-                          IconManager.giftBox,
-                          height: 24.h,
-                          width: 24.w,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, RouteName.rewardScreen);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(10.r),
+                          decoration: BoxDecoration(
+                            color: ColorManager.whiteColor,
+                            borderRadius: BorderRadius.circular(100.r),
+                          ),
+                          child: Image.asset(
+                            IconManager.giftBox,
+                            height: 24.h,
+                            width: 24.w,
+                          ),
                         ),
                       ),
                       16.horizontalSpace,
-                      Container(
-                        padding: EdgeInsets.all(10.r),
-                        decoration: BoxDecoration(
-                          color: ColorManager.whiteColor,
-                          borderRadius: BorderRadius.circular(100.r),
-                        ),
-                        child: Image.asset(
-                          IconManager.notification,
-                          height: 24.h,
-                          width: 24.w,
-                          color: ColorManager.backgroundDark,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RouteName.notificationScreen,
+                          );
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(10.r),
+                          decoration: BoxDecoration(
+                            color: ColorManager.whiteColor,
+                            borderRadius: BorderRadius.circular(100.r),
+                          ),
+                          child: Image.asset(
+                            IconManager.notification,
+                            height: 24.h,
+                            width: 24.w,
+                            color: ColorManager.backgroundDark,
+                          ),
                         ),
                       ),
                     ],
@@ -125,8 +140,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         10.horizontalSpace,
                         Text(
                           "Share this Profile Number when contacting\nsupport so we can find your profile fast.",
-                          style: getRegular400Style12(
+                          style: getRegular400Style14(
                             color: ColorManager.whiteColor,
+                            height: 1.5,
                           ),
                         ),
                       ],
@@ -145,6 +161,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 final menu = homeMenuList[index];
                 return GestureDetector(
                   onTap: () {
+                    ref.read(stateHome.notifier).state = index;
                     if (index == 0) {
                       ref.read(bottomNavIndexProvider.notifier).setIndex(1);
                     } else if (index == 1) {
@@ -159,6 +176,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     icon: menu.icon,
                     title: menu.title,
                     description: menu.subtitle,
+                    isSelected: index == state,
                   ),
                 );
               },
