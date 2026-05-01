@@ -25,9 +25,9 @@ class ColorManager {
   static const Color black300 = Color(0xFF777980);
   static const Color black400 = Color(0xFF4A4C56);
   static const Color black500 = Color(0xFF1D1F2C);
-  static const Color titleText = Color(0xFF2F3131);
+  static const Color titleText = Color(0xff161616);
   static const Color titleText1 = Color(0xFF535353);
-  static const Color subtitleText = Color(0xFF686868);
+  static const Color subtitleText = Color(0xFF646662);
   static const Color subtitleText1 = Color(0xFF60655C);
   static const Color mediumText = Color(0xFF363A33);
   static const Color blueText = Color(0xFF13C0D2);
@@ -52,7 +52,7 @@ class ColorManager {
   static const Color fillColor = Color(0xFFFEF5F3);
 
   // ===== Feedback Colors =====
-  static const Color errorColor = Color(0xFFE25839);
+  static const Color errorColor = Color(0xFFDF1C41);
   static const Color successColor = Color(0xFF388E3C);
   static const Color warningColor = Color(0xFFFFA000);
   static const Color infoColor = Color(0xFF1976D2);

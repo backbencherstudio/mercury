@@ -16,4 +16,5 @@ class IconManager {
   static const String stopWatch = '$baseUrl/stopwatch.svg';
   static const String gas = '$baseUrl/gas.svg';
   static const String food = '$baseUrl/burgar.svg';
+  static const String activity = '$baseUrl/activity-circle.svg';
 }
