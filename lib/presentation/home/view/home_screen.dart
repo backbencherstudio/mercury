@@ -61,22 +61,28 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ),
 
                       8.horizontalSpace,
-                      Column(
-                        children: [
-                          Text(
-                            'James Clerk',
-                            style: getRegular400Style18(
-                              color: ColorManager.whiteColor,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, RouteName.profileScreen);
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'James Clerk',
+                              style: getRegular400Style18(
+                                color: ColorManager.whiteColor,
+                              ),
                             ),
-                          ),
-                          4.verticalSpace,
-                          Text(
-                            'Profile #AP-12345',
-                            style: getRegular400Style12(
-                              color: ColorManager.whiteColor,
+                            4.verticalSpace,
+                            Text(
+                              'Profile #AP-12345',
+                              style: getRegular400Style12(
+                                color: ColorManager.whiteColor,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Spacer(),
                       GestureDetector(
