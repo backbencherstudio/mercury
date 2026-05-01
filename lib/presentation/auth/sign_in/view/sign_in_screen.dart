@@ -32,6 +32,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     final isCheck = ref.watch(toggleCheckBoxProvider);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.r),
         child: SingleChildScrollView(

@@ -12,4 +12,6 @@ class IconManager {
   static const String target = '$baseUrl/target.svg';
   static const String userAdd = '$baseUrl/user-add.svg';
   static const String trendUp = '$baseUrl/trend-up-02.svg';
+  static const String circleCheckFilled = '$baseUrl/circleCheckFilled.svg';
+  static const String stopWatch = '$baseUrl/stopwatch.svg';
 }

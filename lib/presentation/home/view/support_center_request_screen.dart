@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mercury/presentation/widgets/custom_button.dart';
-
+import 'package:flutter_svg/svg.dart';
+import 'package:mercury/core/constansts/icon_manager.dart';
+import 'package:mercury/presentation/widgets/custom_back_header.dart';
+import 'package:mercury/presentation/widgets/primary_button.dart';
+import '../../../core/constansts/color_manger.dart';
+import '../../../core/resource/style_manager.dart';
 import '../../../core/route/route_name.dart';
 
 class SupportCenterRequestScreen extends StatelessWidget {
@@ -10,63 +14,63 @@ class SupportCenterRequestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Transform.translate(
-            offset: Offset(10, 0),
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xffE9E9EA),
-                shape: BoxShape.circle,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Column(
+            children: [
+              const CustomBackHeader(title: 'Support Center'),
+              Expanded(
+                child: Column(
+                  children: [
+                    const Spacer(),
+                    Column(
+                      children: [
+                        SvgPicture.asset(
+                          IconManager.circleCheckFilled,
+                          height: 146.h,
+                          width: 218.w,
+                        ),
+
+                        32.verticalSpace,
+
+                        Text(
+                          "Request received.\nWe will contact you soon",
+                          textAlign: TextAlign.center,
+                          style: getSemiBold600Style24(
+                            color: ColorManager.black500,
+                          ),
+                        ),
+
+                        12.verticalSpace,
+
+                        Text(
+                          "Our support team will reach out within 24 hours",
+                          textAlign: TextAlign.center,
+                          style: getRegular400Style12(
+                            color: ColorManager.black400,
+                          ),
+                        ),
+
+                        48.verticalSpace,
+                        PrimaryButton(
+                          title: 'Back to Home',
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              RouteName.bottomNavScreen,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                  ],
+                ),
               ),
-              child: const Icon(Icons.arrow_back, color: Colors.black),
-            ),
+              80.verticalSpace,
+            ],
           ),
-        ),
-        automaticallyImplyLeading: false,
-        title: Text(" Support Center"),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 90),
-            Image.asset("assets/images/Success.png", height: 130),
-            SizedBox(height: 32.h),
-            Text(
-              "Request received.\nWe will contact you soon",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 32.h),
-            Text(
-              "Our support team will reach out within 24 hours",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            SizedBox(height: 48.h),
-            CustomButton(
-              backgroundColor: Color(0xff0E93A1),
-              textColor: Colors.white,
-              text: "Back to Home",
-              submit: () {
-                Navigator.pushNamed(context, RouteName.bottomNavScreen);
-              },
-            ),
-            SizedBox(height: 8.h),
-          ],
         ),
       ),
     );
