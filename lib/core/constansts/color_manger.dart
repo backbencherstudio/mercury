@@ -15,12 +15,15 @@ class ColorManager {
   static const Color backgroundDark = Color(0xFF0E93A1);
   static const Color backgroundNormal = Color(0xffF6F8FA);
   static const Color backgroundLight = Color(0xffDCF6F9);
+  static const Color backgroundDisabled = Color(0xffF8FAFB);
+  static const Color backgroundPressed = Color(0xffDFE1E7);
   static const Color backgroundContainer = Color(0xffECF5F7);
   static const Color scaffoldDark = Color(0xFF1E1E1E);
 
   // ===== Text Colors =====
   static const Color textPrimary = Color(0xFF212121);
   static const Color textSecondary = Color(0xFF757575);
+  static const Color black = Color(0xff070707);
   static const Color black50 = Color(0xffE9E9EA);
   static const Color black100 = Color(0xffD2D2D5);
   static const Color black300 = Color(0xFF777980);
@@ -63,4 +66,8 @@ class ColorManager {
   static const Color shadowColor = Color(0x1A000000); // 10% opacity black
   static const Color dividerColor = Color(0xFFE0E0E0);
   static const Color overlayColor = Color(0x33000000); // 20% opacity black
+
+
+  // ===== Icon Colors =====
+  static const Color iconColor = Color(0xFF292D32);
 }

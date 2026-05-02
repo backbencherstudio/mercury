@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../widgets/custom_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import '../../../core/constansts/color_manger.dart';
+import '../../../core/constansts/icon_manager.dart';
+import '../../../core/resource/style_manager.dart';
+import '../../../core/route/route_name.dart';
+import '../../widgets/custom_back_header.dart';
+import '../../widgets/primary_button.dart';
 
 class FullfilledScreen extends StatelessWidget {
   const FullfilledScreen({super.key});
@@ -7,68 +14,56 @@ class FullfilledScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Transform.translate(
-            offset: Offset(10, 0),
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xffE9E9EA),
-                shape: BoxShape.circle,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Column(
+            children: [
+              CustomBackHeader(title: "Fulfilled!"),
+              Spacer(),
+              Container(
+                padding: EdgeInsets.all(10.r),
+                decoration: BoxDecoration(
+                  color: ColorManager.backgroundLight,
+                  shape: BoxShape.circle,
+                ),
+                child: SvgPicture.asset(
+                  IconManager.like,
+                  height: 32.h,
+                  width: 32.w,
+                ),
               ),
-              child: const Icon(Icons.arrow_back, color: Colors.black),
-            ),
+
+              20.verticalSpace,
+
+              Text(
+                "Already Fullfilled!",
+                style: getSemiBold600Style24(color: ColorManager.black500),
+              ),
+
+              20.verticalSpace,
+              Text(
+                textAlign: TextAlign.center,
+                "This request has already been fullfilled.",
+                style: getRegular400Style16(
+                  color: ColorManager.black400,
+                  height: 1.3,
+                ),
+              ),
+
+              20.verticalSpace,
+
+              PrimaryButton(
+                onTap: () {
+                  Navigator.pushNamed(context, RouteName.bottomNavScreen);
+                },
+                title: 'Back To Home',
+                width: 270.w,
+              ),
+              Spacer(),
+              80.verticalSpace,
+            ],
           ),
-        ),
-        title: const Text(
-          "Connection Request",
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.all(1),
-              decoration: BoxDecoration(
-                color: Color(0xffE7F9FB),
-                shape: BoxShape.circle,
-              ),
-              child: Image.asset("assets/images/done icon.png", height: 60),
-            ),
-
-            Text(
-              "Already Fulfilled !",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-
-            SizedBox(height: 10),
-            Text(
-              "This request has already beed fulfilled",
-            ),
-
-            SizedBox(height: 10),
-
-            CustomButton(
-              backgroundColor: Color(0xff0F9DAB),
-              textColor: Colors.white,
-              text: "Back To Home",
-              submit: () {},
-            ),
-          ],
         ),
       ),
     );

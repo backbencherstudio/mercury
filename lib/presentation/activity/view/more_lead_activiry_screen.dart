@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mercury/core/constansts/color_manger.dart';
+import 'package:mercury/core/resource/style_manager.dart';
+
+import '../../widgets/custom_back_header.dart';
+import '../model/more_lead_model.dart';
 
 class MoreLeadActivityScreen extends StatelessWidget {
   const MoreLeadActivityScreen({super.key});
@@ -6,44 +12,45 @@ class MoreLeadActivityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF5F6F8),
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(Icons.arrow_back, color: Colors.black),
-        ),
-        title: const Text(
-          "Lead Activity",
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _sectionTitle("Total Lead submitted (6)"),
-            const SizedBox(height: 10),
-            _leadCard(),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Column(
+            children: [
+              CustomBackHeader(title: 'Lead Activity'),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _sectionTitle(
+                        "Total Lead submitted (${totalLeadList.length})",
+                      ),
+                      const SizedBox(height: 10),
+                      _leadCard(totalLeadList),
 
-            const SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
-            _sectionTitle("Qualified Leads (4)"),
-            const SizedBox(height: 10),
-            _leadCard(),
+                      _sectionTitle(
+                        "Qualified Leads (${qualifiedLeadList.length})",
+                      ),
+                      const SizedBox(height: 10),
+                      _leadCard(qualifiedLeadList),
 
-            const SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
-            _sectionTitle("Conversions (2)"),
-            const SizedBox(height: 10),
-            _leadCard(),
-          ],
+                      _sectionTitle(
+                        "Conversions (${conversationLeadList.length})",
+                      ),
+                      const SizedBox(height: 10),
+                      _leadCard(conversationLeadList),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -52,25 +59,29 @@ class MoreLeadActivityScreen extends StatelessWidget {
   Widget _sectionTitle(String title) {
     return Text(
       title,
-      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+      style: getMedium500Style18(color: ColorManager.black500),
     );
   }
 
-  Widget _leadCard() {
+  Widget _leadCard(List<MoreLeadModel> leadList) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: ColorManager.black50),
       ),
       child: Column(
         children: List.generate(
-          4,
+          leadList.length,
           (index) => Column(
             children: [
-              _leadRow(),
-              if (index != 3)
-                const Divider(height: 20, thickness: 0.5, indent: 50),
+              _leadRow(leadList[index]),
+              if (index != leadList.length - 1)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w),
+                  child: Divider(color: ColorManager.black50),
+                ),
             ],
           ),
         ),
@@ -78,28 +89,31 @@ class MoreLeadActivityScreen extends StatelessWidget {
     );
   }
 
-  Widget _leadRow() {
+  Widget _leadRow(MoreLeadModel lead) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(6),
+            padding: EdgeInsets.all(6.r),
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: Color(0xffB6EDF2),
+              color: ColorManager.backgroundLight,
             ),
-            child: const Icon(Icons.star, size: 16, color: Color(0xff0E93A1)),
+            child: Icon(Icons.star, size: 24.sp, color: ColorManager.primary),
           ),
-          const SizedBox(width: 10),
-          const Column(
+          10.horizontalSpace,
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("1245 la st", style: TextStyle(fontWeight: FontWeight.w500)),
-              SizedBox(height: 2),
               Text(
-                "3 January, 2026",
-                style: TextStyle(fontSize: 12, color: Colors.grey),
+                lead.title,
+                style: getRegular400Style14(color: ColorManager.black500),
+              ),
+              2.verticalSpace,
+              Text(
+                lead.subtext,
+                style: getRegular400Style14(color: ColorManager.black400),
               ),
             ],
           ),

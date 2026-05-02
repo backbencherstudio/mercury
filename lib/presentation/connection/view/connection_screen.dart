@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mercury/core/constansts/color_manger.dart';
+import 'package:mercury/core/resource/style_manager.dart';
+import 'package:mercury/presentation/widgets/custom_back_header.dart';
+import '../../../core/constansts/icon_manager.dart';
 import '../../../core/route/route_name.dart';
 
 class ConnectionScreen extends StatelessWidget {
@@ -39,108 +45,120 @@ class ConnectionScreen extends StatelessWidget {
       },
     ];
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        elevation: 0,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Transform.translate(
-            offset: Offset(10, 0),
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xffE9E9EA),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.arrow_back, color: Colors.black),
-            ),
-          ),
-        ),
-        title: const Text(
-          "Connection Request",
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: Column(
-        children: [
-          ListView.builder(
-            itemCount: data.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final connectData = data[index];
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: 7, horizontal: 16),
-                child: GestureDetector(
-                  onTap: () async {
-                    await Navigator.pushNamed(
-                      context,
-                      RouteName.connectionRequestScreen,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              CustomBackHeader(title: 'Connection Request'),
+              30.verticalSpace,
+              Expanded(
+                child: ListView.builder(
+                  itemCount: data.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final connectData = data[index];
+                    return GestureDetector(
+                      onTap: () async {
+                        await Navigator.pushNamed(
+                          context,
+                          RouteName.connectionRequestScreen,
+                        );
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 16.h),
+                        child: Container(
+                          padding: EdgeInsets.all(16.w),
+                          decoration: BoxDecoration(
+                            color: ColorManager.backgroundDisabled,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    connectData['title'],
+                                    style: getSemiBold600Style20(
+                                      color: ColorManager.black500,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 12.w,
+                                      vertical: 6.h,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          connectData['status'] == "Fulfilled"
+                                          ? ColorManager.backgroundPressed
+                                          : ColorManager.backgroundLight,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      connectData['status'],
+                                      style: getRegular400Style12(
+                                        color:
+                                            connectData['status'] == "Fulfilled"
+                                            ? ColorManager.black400
+                                            : ColorManager.primary,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              12.verticalSpace,
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    IconManager.location,
+                                    height: 16.h,
+                                    width: 16.w,
+                                    colorFilter: ColorFilter.mode(
+                                      ColorManager.black400,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                  5.horizontalSpace,
+                                  Text(
+                                    connectData['location'],
+                                    style: getRegular400Style12(
+                                      color: ColorManager.black400,
+                                    ),
+                                  ),
+                                  20.horizontalSpace,
+
+                                  SvgPicture.asset(
+                                    IconManager.clock,
+                                    height: 16.h,
+                                    width: 16.w,
+                                    colorFilter: ColorFilter.mode(
+                                      ColorManager.black400,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                  5.horizontalSpace,
+                                  Text(
+                                    connectData['time'],
+                                    style: getRegular400Style12(
+                                      color: ColorManager.black400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     );
                   },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 19, horizontal: 15),
-
-                    decoration: BoxDecoration(
-                      color: Color(0xffF8FAFB),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              connectData['title'],
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 20,
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                color: connectData['status'] == "Fulfilled"
-                                    ? Color(0xffDFE1E7)
-                                    : Color(0xffDCF6F9),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                connectData['status'],
-                                style: TextStyle(
-                                  color: connectData['status'] == "Fulfilled"
-                                      ? Color(0xff4A4C56)
-                                      : Color(0xff0F9DAB),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Icon(Icons.location_on_outlined),
-                            SizedBox(width: 5),
-                            Text(connectData['location']),
-                            SizedBox(width: 5),
-
-                            Icon(Icons.access_time),
-                            SizedBox(width: 5),
-
-                            Text(connectData['time']),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
-              );
-            },
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
