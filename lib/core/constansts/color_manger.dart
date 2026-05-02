@@ -23,6 +23,7 @@ class ColorManager {
   // ===== Text Colors =====
   static const Color textPrimary = Color(0xFF212121);
   static const Color textSecondary = Color(0xFF757575);
+  static const Color black = Color(0xff070707);
   static const Color black50 = Color(0xffE9E9EA);
   static const Color black100 = Color(0xffD2D2D5);
   static const Color black300 = Color(0xFF777980);

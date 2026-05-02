@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/custom_button.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mercury/core/constansts/icon_manager.dart';
+import 'package:mercury/presentation/widgets/primary_button.dart';
+import '../../../core/constansts/color_manger.dart';
+import '../../../core/resource/style_manager.dart';
+import '../../widgets/custom_back_header.dart';
 import '../../../core/route/route_name.dart';
 
 class LeadScreen extends StatefulWidget {
@@ -26,157 +32,156 @@ class _LeadScreenState extends State<LeadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leadingWidth: 70,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE9E9EA),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-                size: 20,
-              ),
-            ),
-          ),
-        ),
-        title: const Text(
-          "Add New Lead",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: false,
-      ),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Address
-              _buildLabel("Address"),
-              _buildTextField(
-                controller: _addressController,
-                hint: "123 Main St, Los Angeles",
-                prefixIcon: const Icon(CupertinoIcons.location_solid, size: 22),
-              ),
-              const SizedBox(height: 20),
-
-              // Homeowner Name
-              _buildLabel("Homeowner's Name"),
-              _buildTextField(
-                controller: _nameController,
-                hint: "John Smith",
-                prefixIcon: const Icon(CupertinoIcons.person_fill, size: 22),
-              ),
-              const SizedBox(height: 20),
-
-              // Phone
-              _buildLabel("Homeowner's Phone Number"),
-              _buildTextField(
-                controller: _phoneController,
-                hint: "+33 01238324",
-                prefixIcon: const Icon(CupertinoIcons.phone_fill, size: 22),
-                keyboardType: TextInputType.phone,
-              ),
-              const SizedBox(height: 20),
-
-              // Trade
-              _buildLabel("Trade"),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF5F5F5),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.grey.shade300),
-                ),
-                child: DropdownButton<String>(
-                  value: _selectedTrade,
-                  isExpanded: true,
-                  underline: const SizedBox(),
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  items:
-                      ["Plumbing", "Electrical", "Roofing", "HVAC", "General"]
-                          .map(
-                            (trade) => DropdownMenuItem(
-                              value: trade,
-                              child: Text(trade),
+              CustomBackHeader(title: "Add New Lead"),
+              30.verticalSpace,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Address
+                        _buildLabel("Address"),
+                        _buildTextField(
+                          controller: _addressController,
+                          hint: "123 Main St, Los Angeles",
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.all(12.r),
+                            child: SvgPicture.asset(
+                              IconManager.map,
+                              height: 20.h,
+                              width: 20.w,
                             ),
-                          )
-                          .toList(),
-                  onChanged: (value) {
-                    setState(() => _selectedTrade = value);
-                  },
-                ),
-              ),
-              const SizedBox(height: 20),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
 
-              // Notes
-              _buildLabel("Write Notes"),
-              TextFormField(
-                controller: _notesController,
-                maxLines: 4,
-                minLines: 3,
-                decoration: InputDecoration(
-                  hintText: "Roof leaking issue",
-                  hintStyle: TextStyle(color: Colors.grey.shade500),
-                  filled: true,
-                  fillColor: const Color(0xFFF9F9F9),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
+                        // Homeowner Name
+                        _buildLabel("Homeowner's Name"),
+                        _buildTextField(
+                          controller: _nameController,
+                          hint: "John Smith",
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.all(12.r),
+                            child: SvgPicture.asset(
+                              IconManager.user,
+                              height: 20.h,
+                              width: 20.w,
+                            ),
+                          ),
+                        ),
+                        20.verticalSpace,
+
+                        // Phone
+                        _buildLabel("Homeowner's Phone Number"),
+                        _buildTextField(
+                          controller: _phoneController,
+                          hint: "+33 01238324",
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.all(12.r),
+                            child: SvgPicture.asset(
+                              IconManager.calling,
+                              height: 20.h,
+                              width: 20.w,
+                            ),
+                          ),
+                          keyboardType: TextInputType.phone,
+                        ),
+                        20.verticalSpace,
+
+                        // Trade
+                        _buildLabel("Trade"),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 6.h,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey.shade300),
+                          ),
+                          child: DropdownButton<String>(
+                            value: _selectedTrade,
+                            isExpanded: true,
+                            underline: const SizedBox(),
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            items:
+                                [
+                                      "Plumbing",
+                                      "Electrical",
+                                      "Roofing",
+                                      "HVAC",
+                                      "General",
+                                    ]
+                                    .map(
+                                      (trade) => DropdownMenuItem(
+                                        value: trade,
+                                        child: Text(trade),
+                                      ),
+                                    )
+                                    .toList(),
+                            onChanged: (value) {
+                              setState(() => _selectedTrade = value);
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+
+                        // Notes
+                        _buildLabel("Write Notes"),
+                        TextFormField(
+                          controller: _notesController,
+                          maxLines: 4,
+                          minLines: 3,
+                          decoration: InputDecoration(
+                            hintText: "Roof leaking issue",
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+
+                        // Photo Upload
+                        _buildLabel("Upload Photos Here"),
+                        Row(
+                          children: [
+                            _buildPhotoPlaceholder(),
+                            const SizedBox(width: 12),
+                            _buildPhotoPlaceholder(),
+                            const SizedBox(width: 12),
+                            _buildPhotoPlaceholder(isAdd: true),
+                          ],
+                        ),
+                        const SizedBox(height: 32),
+
+                        PrimaryButton(
+                          title: 'Preview',
+                          containerColor: ColorManager.backgroundLight,
+                          textStyle: getSemiBold600Style16(
+                            color: ColorManager.backgroundDark,
+                          ),
+                          border: Border.all(
+                            color: ColorManager.backgroundDark,
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              RouteName.previewScreen,
+                            );
+                          },
+                        ),
+                        20.verticalSpace,
+                        PrimaryButton(title: 'Submit', onTap: () {}),
+                        32.verticalSpace,
+                      ],
+                    ),
                   ),
-                  contentPadding: const EdgeInsets.all(16),
                 ),
               ),
-              const SizedBox(height: 24),
-
-              // Photo Upload
-              _buildLabel("Upload Photos Here"),
-              Row(
-                children: [
-                  _buildPhotoPlaceholder(),
-                  const SizedBox(width: 12),
-                  _buildPhotoPlaceholder(),
-                  const SizedBox(width: 12),
-                  _buildPhotoPlaceholder(isAdd: true),
-                ],
-              ),
-              const SizedBox(height: 32),
-              CustomButton(
-                text: "Preview",
-                submit: () {
-                  Navigator.pushNamed(context, RouteName.previewScreen);
-                },
-                backgroundColor: Color(0xffE7F9FB),
-              ),
-
-              SizedBox(height: 20),
-              CustomButton(
-                text: "Submit",
-                submit: () {},
-                backgroundColor: Color(0xff0E93A1),
-                textColor: Colors.white,
-              ),
-
-              const SizedBox(height: 24),
             ],
           ),
         ),
@@ -189,11 +194,7 @@ class _LeadScreenState extends State<LeadScreen> {
       padding: const EdgeInsets.only(bottom: 8),
       child: Text(
         text,
-        style: const TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
-          color: Colors.black87,
-        ),
+        style: getMedium500Style16(color: ColorManager.black500),
       ),
     );
   }
@@ -201,7 +202,7 @@ class _LeadScreenState extends State<LeadScreen> {
   Widget _buildTextField({
     required TextEditingController controller,
     required String hint,
-    Icon? prefixIcon,
+    Widget? prefixIcon,
     TextInputType? keyboardType,
   }) {
     return TextFormField(
@@ -211,24 +212,6 @@ class _LeadScreenState extends State<LeadScreen> {
         hintText: hint,
         hintStyle: TextStyle(color: Colors.grey.shade500),
         prefixIcon: prefixIcon,
-        filled: true,
-        fillColor: const Color(0xFFffffff),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xffE9E9EA), width: 1),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xffE9E9EA), width: 1),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Color(0xffE9E9EA), width: 1),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 16,
-          horizontal: 16,
-        ),
       ),
     );
   }
