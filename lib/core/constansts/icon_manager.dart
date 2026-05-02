@@ -22,4 +22,7 @@ class IconManager {
   static const String setting = '$baseUrl/setting.svg';
   static const String personPlus = '$baseUrl/person_plus.svg';
   static const String like = '$baseUrl/like.svg';
+  static const String file = '$baseUrl/file.svg';
+  static const String qualified = '$baseUrl/qualified.svg';
+  static const String sheet = '$baseUrl/sheet.svg';
 }

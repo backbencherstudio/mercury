@@ -65,4 +65,8 @@ class ColorManager {
   static const Color shadowColor = Color(0x1A000000); // 10% opacity black
   static const Color dividerColor = Color(0xFFE0E0E0);
   static const Color overlayColor = Color(0x33000000); // 20% opacity black
+
+
+  // ===== Icon Colors =====
+  static const Color iconColor = Color(0xFF292D32);
 }

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mercury/core/constansts/color_manger.dart';
+import 'package:mercury/core/constansts/icon_manager.dart';
+import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/custom_button.dart';
+import 'package:mercury/presentation/widgets/primary_button.dart';
 import '../../../core/route/route_name.dart';
+import '../../widgets/custom_back_header.dart';
+import '../model/lead_activity_model.dart';
 
 class ActivityScreen extends StatefulWidget {
   const ActivityScreen({super.key});
@@ -13,23 +20,6 @@ class ActivityScreen extends StatefulWidget {
 class _ActivityScreenState extends State<ActivityScreen> {
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> data = [
-      {
-        "image": "assets/images/lead submitted.png",
-        "number": "6",
-        "title": "Lead Submitted",
-      },
-      {
-        "image": "assets/images/qualified lead.png",
-        "number": "4",
-        "title": "Qualified Leads",
-      },
-      {
-        "image": "assets/images/conversation lead.png",
-        "number": "6",
-        "title": "Conversation",
-      },
-    ];
     String? selectedMonth;
 
     final List<String> months = [
@@ -47,106 +37,101 @@ class _ActivityScreenState extends State<ActivityScreen> {
       "December",
     ];
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        automaticallyImplyLeading: false,
-        title: Text("Lead Activity"),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: 20),
-
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: DropdownButtonFormField<String>(
-              initialValue: selectedMonth,
-              icon: const Icon(
-                Icons.keyboard_arrow_down_rounded,
-                color: Color(0xffE9E9EA),
-                size: 28,
-              ),
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xffE9E9EA)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xffE9E9EA)),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xffE9E9EA)),
-                ),
-              ),
-              items: months.map((month) {
-                return DropdownMenuItem<String>(
-                  value: month,
-                  child: Text(month),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  selectedMonth = value;
-                });
-              },
-            ),
-          ),
-          SizedBox(height: 20.h),
-          SizedBox(
-            height: 180,
-            child: ListView.builder(
-              itemCount: data.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                final leadData = data[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 9),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Color(0xffE9E9EA)),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-
-                            color: Color(0xffE7F9FB),
-                          ),
-                          child: Image.asset(leadData['image'], height: 50),
-                        ),
-                        SizedBox(height: 10),
-                        Text(leadData['number']),
-                        SizedBox(height: 10),
-
-                        Text(leadData['title']),
-                      ],
-                    ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CustomBackHeader(title: "Lead Activity"),
+              30.verticalSpace,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: DropdownButtonFormField<String>(
+                  initialValue: selectedMonth,
+                  icon: const Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: ColorManager.iconColor,
+                    size: 28,
                   ),
-                );
-              },
-            ),
+                  items: months.map((month) {
+                    return DropdownMenuItem<String>(
+                      value: month,
+                      child: Text(month),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedMonth = value;
+                    });
+                  },
+                ),
+              ),
+              20.verticalSpace,
+              Row(
+                children: leadActivityList.map((leadData) {
+                  return Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(4.r),
+                      child: Container(
+                        padding: EdgeInsets.all(10.r),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(color: ColorManager.black50),
+                          color: ColorManager.whiteColor,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(8.r),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.r),
+
+                                color: Color(0xffE7F9FB),
+                              ),
+                              child: SvgPicture.asset(
+                                leadData.icon,
+                                height: 32.h,
+                                width: 32.w,
+                              ),
+                            ),
+                            12.verticalSpace,
+                            Text(
+                              leadData.number,
+                              style: getMedium500Style18(
+                                color: ColorManager.black500,
+                              ),
+                            ),
+                            6.verticalSpace,
+
+                            Text(
+                              leadData.title,
+                              style: getRegular400Style14(
+                                color: ColorManager.black500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+              20.verticalSpace,
+              PrimaryButton(
+                title: 'More Info',
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteName.moreLeadActivityScreen,
+                  );
+                },
+              ),
+            ],
           ),
-          SizedBox(height: 30.h),
-          CustomButton(
-            backgroundColor: Color(0xff0E93A1),
-            textColor: Colors.white,
-            text: "More Info",
-            submit: () async {
-              await Navigator.pushNamed(
-                context,
-                RouteName.moreLeadActivityScreen,
-              );
-            },
-          ),
-        ],
+        ),
       ),
     );
   }
