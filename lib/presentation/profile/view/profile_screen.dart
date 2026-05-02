@@ -253,7 +253,7 @@ class CustomInfo extends StatelessWidget {
       children: [
         Text(title, style: getMedium500Style18(color: ColorManager.black500)),
         6.verticalSpace,
-        Text(value, style: getRegular400Style12(color: ColorManager.black400)),
+        Text(value, style: getRegular400Style14(color: ColorManager.black400)),
       ],
     );
   }

@@ -15,6 +15,8 @@ class ColorManager {
   static const Color backgroundDark = Color(0xFF0E93A1);
   static const Color backgroundNormal = Color(0xffF6F8FA);
   static const Color backgroundLight = Color(0xffDCF6F9);
+  static const Color backgroundDisabled = Color(0xffF8FAFB);
+  static const Color backgroundPressed = Color(0xffDFE1E7);
   static const Color backgroundContainer = Color(0xffECF5F7);
   static const Color scaffoldDark = Color(0xFF1E1E1E);
 
