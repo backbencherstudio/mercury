@@ -106,7 +106,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
 
                             Text(
                               leadData.title,
-                              style: getRegular400Style14(
+                              style: getRegular400Style12(
                                 color: ColorManager.black500,
                               ),
                             ),
