@@ -1,22 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mercury/core/constansts/icon_manager.dart';
 import 'package:mercury/presentation/widgets/primary_button.dart';
 import '../../../core/constansts/color_manger.dart';
 import '../../../core/resource/style_manager.dart';
+import '../../bottom_nav/viewmodel/bottom_nav_provider.dart';
 import '../../widgets/custom_back_header.dart';
 import '../../../core/route/route_name.dart';
 
-class LeadScreen extends StatefulWidget {
+class LeadScreen extends ConsumerStatefulWidget {
   const LeadScreen({super.key});
 
   @override
-  State<LeadScreen> createState() => _LeadScreenState();
+  ConsumerState<LeadScreen> createState() => _LeadScreenState();
 }
 
-class _LeadScreenState extends State<LeadScreen> {
+class _LeadScreenState extends ConsumerState<LeadScreen> {
   final _formKey = GlobalKey<FormState>();
 
   // Controllers (you'll need these later for real data collection)
@@ -37,7 +39,12 @@ class _LeadScreenState extends State<LeadScreen> {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             children: [
-              CustomBackHeader(title: "Add New Lead"),
+              CustomBackHeader(
+                title: "Add New Lead",
+                onBackTap: () {
+                  ref.read(bottomNavIndexProvider.notifier).setIndex(0);
+                },
+              ),
               30.verticalSpace,
               Expanded(
                 child: SingleChildScrollView(

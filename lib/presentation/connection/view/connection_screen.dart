@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mercury/core/constansts/color_manger.dart';
@@ -6,10 +7,16 @@ import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/custom_back_header.dart';
 import '../../../core/constansts/icon_manager.dart';
 import '../../../core/route/route_name.dart';
+import '../../bottom_nav/viewmodel/bottom_nav_provider.dart';
 
-class ConnectionScreen extends StatelessWidget {
+class ConnectionScreen extends ConsumerStatefulWidget {
   const ConnectionScreen({super.key});
 
+  @override
+  ConsumerState<ConnectionScreen> createState() => _ConnectionScreenState();
+}
+
+class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> data = [
@@ -47,10 +54,15 @@ class ConnectionScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             children: [
-              CustomBackHeader(title: 'Connection Request'),
+              CustomBackHeader(
+                title: 'Connection Request',
+                onBackTap: () {
+                  ref.read(bottomNavIndexProvider.notifier).setIndex(0);
+                },
+              ),
               30.verticalSpace,
               Expanded(
                 child: ListView.builder(

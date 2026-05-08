@@ -41,40 +41,39 @@ class BottomNavScreen extends ConsumerWidget {
             ),
           ],
         ),
-        child: SafeArea(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(
-                icon: "assets/images/home.png",
-                title: "Home",
-                index: 0,
-                currentIndex: currentIndex,
-                ref: ref,
-              ),
-              _buildNavItem(
-                icon: "assets/images/lead.png",
-                title: "Lead",
-                index: 1,
-                currentIndex: currentIndex,
-                ref: ref,
-              ),
-              _buildNavItem(
-                icon: "assets/images/activity1.png",
-                title: "Activity",
-                index: 2,
-                currentIndex: currentIndex,
-                ref: ref,
-              ),
-              _buildNavItem(
-                icon: "assets/images/connection.png",
-                title: "Connection",
-                index: 3,
-                currentIndex: currentIndex,
-                ref: ref,
-              ),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildNavItem(
+              icon: "assets/images/home.png",
+              title: "Home",
+              index: 0,
+              currentIndex: currentIndex,
+              ref: ref,
+            ),
+            _buildNavItem(
+              icon: "assets/images/lead.png",
+              title: "Lead",
+              index: 1,
+              currentIndex: currentIndex,
+              ref: ref,
+            ),
+            _buildNavItem(
+              icon: "assets/images/activity1.png",
+              title: "Activity",
+              index: 2,
+              currentIndex: currentIndex,
+              ref: ref,
+            ),
+            _buildNavItem(
+              icon: "assets/images/connection.png",
+              title: "Connection",
+              index: 3,
+              currentIndex: currentIndex,
+              ref: ref,
+            ),
+          ],
         ),
       ),
     );

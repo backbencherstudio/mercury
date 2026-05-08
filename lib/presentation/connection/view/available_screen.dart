@@ -19,7 +19,7 @@ class AvailableScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             children: [
-              CustomBackHeader(title: "Available!"),
+              CustomBackHeader(title: "Available!",),
               Spacer(),
               Container(
                 padding: EdgeInsets.all(10.r),

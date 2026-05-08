@@ -5,56 +5,6 @@ import 'package:mercury/core/route/route_import_part.dart';
 import 'core/resource/theme_manager.dart';
 import 'core/route/route_name.dart';
 
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-
-//   runApp(const ProviderScope(child: MyApp()));
-// }
-
-// class MyApp extends ConsumerWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     return ScreenUtilInit(
-//       minTextAdapt: true,
-//       splitScreenMode: true,
-//       designSize: const Size(375, 812),
-//       builder: (_, _) => MaterialApp(
-//         debugShowCheckedModeBanner: false,
-//         theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-//         initialRoute: RouteNames.splashScreen,
-//         routes: AppRoutes.routes,
-//         onUnknownRoute: (settings) {
-//           return MaterialPageRoute(
-//             builder: (context) => Scaffold(
-//               appBar: AppBar(title: const Text('Route Error')),
-//               body: Center(
-//                 child: Column(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     Text('No route defined for: ${settings.name}'),
-//                     const SizedBox(height: 20),
-//                     ElevatedButton(
-//                       onPressed: () {
-//                         Navigator.of(context).pushNamedAndRemoveUntil(
-//                           RouteNames.splashScreen,
-//                           (route) => false,
-//                         );
-//                       },
-
-//                       child: const Text('Go Home'),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
@@ -68,7 +18,7 @@ class MyApp extends ConsumerWidget {
     return ScreenUtilInit(
       designSize: const Size(440, 956),
       builder: (context, child) => MaterialApp(
-        title: 'ATLISS',
+        title: 'Agua Leads',
         debugShowCheckedModeBanner: false,
 
         theme: getApplicationTheme().copyWith(

@@ -53,11 +53,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 children: [
                   Row(
                     children: [
-                      CustomNetworkImage(
-                        imageUrl: IconManager.networkProfile,
-                        height: 48.h,
-                        width: 48.w,
-                        borderRadius: 100.r,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, RouteName.profileScreen);
+                        },
+                        child: CustomNetworkImage(
+                          imageUrl: IconManager.networkProfile,
+                          height: 48.h,
+                          width: 48.w,
+                          borderRadius: 100.r,
+                        ),
                       ),
 
                       8.horizontalSpace,
