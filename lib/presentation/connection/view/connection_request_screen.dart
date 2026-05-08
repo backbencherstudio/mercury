@@ -167,7 +167,7 @@ class ConnectionRequestScreen extends StatelessWidget {
                     ),
                     12.verticalSpace,
                     Text(
-                      "If you know a contractor for this type of work, let us\nknow. Onjly one referral will be approved per request",
+                      "If you know a contractor for this type of work, let us know. Only one referral will be approved per request.",
                       style: getRegular400Style14(
                         color: ColorManager.black400,
                         height: 1.5.h,

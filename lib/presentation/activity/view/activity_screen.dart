@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mercury/core/constansts/color_manger.dart';
 import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/primary_button.dart';
 import '../../../core/route/route_name.dart';
+import '../../bottom_nav/viewmodel/bottom_nav_provider.dart';
 import '../../widgets/custom_back_header.dart';
 import '../model/lead_activity_model.dart';
 
-class ActivityScreen extends StatefulWidget {
+class ActivityScreen extends ConsumerStatefulWidget {
   const ActivityScreen({super.key});
 
   @override
-  State<ActivityScreen> createState() => _ActivityScreenState();
+  ConsumerState<ActivityScreen> createState() => _ActivityScreenState();
 }
-
-class _ActivityScreenState extends State<ActivityScreen> {
+class _ActivityScreenState extends ConsumerState<ActivityScreen> {
   @override
   Widget build(BuildContext context) {
     String? selectedMonth;
@@ -41,7 +42,9 @@ class _ActivityScreenState extends State<ActivityScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CustomBackHeader(title: "Lead Activity"),
+              CustomBackHeader(title: "Lead Activity", onBackTap: () {
+                  ref.read(bottomNavIndexProvider.notifier).setIndex(0);
+                },),
               30.verticalSpace,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
@@ -106,7 +109,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
 
                             Text(
                               leadData.title,
-                              style: getRegular400Style14(
+                              style: getRegular400Style12(
                                 color: ColorManager.black500,
                               ),
                             ),

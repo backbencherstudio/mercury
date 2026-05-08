@@ -105,7 +105,7 @@ class RewardDetailScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Text(
-                          "* There is no guaranteed qualification. Gifts are provided at the company’s discretion.Appreciation gifts are discretionary, non-cash incentives. They are not compensation, wages,or guaranteed rewards.Availability and value may vary\n\n"
+                          "* There is no guaranteed qualification. Gifts are provided at the company’s discretion. Appreciation gifts are discretionary, non-cash incentives. They are not compensation, wages,or guaranteed rewards. Availability and value may vary\n\n"
                           "* Gift card automatically expires after 30 days since Appreciation Reward Box Opened.",
                           style: getRegular400Style14(
                             color: ColorManager.black400,

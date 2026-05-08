@@ -5,6 +5,7 @@ import 'package:mercury/presentation/widgets/primary_button.dart';
 import '../../../../core/constansts/color_manger.dart';
 import '../../../../core/resource/style_manager.dart';
 import '../../../../core/route/route_name.dart';
+import '../viewmodel/auth_viewmodel.dart';
 import '../viewmodel/is_password_show_provider.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
@@ -198,8 +199,18 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
                   PrimaryButton(
                     title: 'Login',
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteName.bottomNavScreen);
+                    isLoading: ref.watch(authProvider),
+                    onTap: () async {
+                      final res = await ref
+                          .read(authProvider.notifier)
+                          .login(
+                            email: _userNameController.text.trim(),
+                            password: _passwordController.text.trim(),
+                          );
+                      if (res.isSuccess) {
+                        //if (!context.mounted) return;
+                        Navigator.pushNamed(context, RouteName.bottomNavScreen);
+                      }
                     },
                   ),
 

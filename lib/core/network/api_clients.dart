@@ -11,9 +11,9 @@ class ApiClient {
   static final Dio _dio = Dio(
     BaseOptions(
       baseUrl: ApiEndpoints.baseUrl,
-      connectTimeout: Duration(seconds: 10),
-      sendTimeout: Duration(seconds: 10),
-      receiveTimeout: Duration(seconds: 10),
+      connectTimeout: Duration(seconds: 30),
+      sendTimeout: Duration(seconds: 30),
+      receiveTimeout: Duration(seconds: 30),
     ),
   );
   static Map<String, String>? headers;
