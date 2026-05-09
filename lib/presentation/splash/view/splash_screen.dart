@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mercury/core/constansts/color_manger.dart';
 import '../../../core/resource/style_manager.dart';
 import '../../../core/route/route_name.dart';
+import '../../../data/sources/local/shared_preference/shared_preference.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,7 +24,12 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
 
     if (mounted) {
-      Navigator.pushReplacementNamed(context, RouteName.signInScreen);
+      final token = await SharedPreferenceData.getToken();
+      if (token != null && token.isNotEmpty) {
+        Navigator.pushReplacementNamed(context, RouteName.bottomNavScreen);
+      } else {
+        Navigator.pushReplacementNamed(context, RouteName.signInScreen);
+      }
     }
   }
 

@@ -4,12 +4,12 @@ import 'package:mercury/core/constansts/icon_manager.dart';
 import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/custom_back_header.dart';
 import 'package:mercury/presentation/widgets/custom_network_image.dart';
-
 import '../../../core/constansts/color_manger.dart';
+import '../../../data/models/user_model.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
+  const ProfileScreen({super.key, required this.user});
+  final UserModel user;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

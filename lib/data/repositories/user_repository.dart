@@ -1,3 +1,4 @@
+import '../models/user_model.dart';
 import '../sources/remote/user_api_service.dart';
 
 class UserRepository {
@@ -5,9 +6,7 @@ class UserRepository {
 
   UserRepository({required this.remoteSource});
 
-  // Future<List<UserModel>> getUsers() async {
-  //   return await remoteSource.fetchUsers();
-  // }
+  Future<UserModel> getUser() async {
+    return await remoteSource.getUser();
+  }
 }
-
-
