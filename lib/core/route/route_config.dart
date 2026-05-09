@@ -12,9 +12,13 @@ class AppRouter {
       case RouteName.previewScreen:
         return MaterialPageRoute(builder: (_) => const PreviewScreen());
       case RouteName.moreLeadActivityScreen:
-        return MaterialPageRoute(builder: (_) => const MoreLeadActivityScreen());
+        return MaterialPageRoute(
+          builder: (_) => const MoreLeadActivityScreen(),
+        );
       case RouteName.connectionRequestScreen:
-        return MaterialPageRoute(builder: (_) => const ConnectionRequestScreen());
+        return MaterialPageRoute(
+          builder: (_) => const ConnectionRequestScreen(),
+        );
       case RouteName.availableScreen:
         return MaterialPageRoute(builder: (_) => const AvailableScreen());
       case RouteName.fullfilledScreen:
@@ -22,16 +26,21 @@ class AppRouter {
       case RouteName.supportCenterScreen:
         return MaterialPageRoute(builder: (_) => const SupportCenterScreen());
       case RouteName.supportCenterRequestScreen:
-        return MaterialPageRoute(builder: (_) => const SupportCenterRequestScreen());
-        case RouteName.watchVideoScreen:
+        return MaterialPageRoute(
+          builder: (_) => const SupportCenterRequestScreen(),
+        );
+      case RouteName.watchVideoScreen:
         return MaterialPageRoute(builder: (_) => const WatchVideoScreen());
-        case RouteName.rewardScreen:
+      case RouteName.rewardScreen:
         return MaterialPageRoute(builder: (_) => const RewardScreen());
-        case RouteName.rewardDetailScreen:
+      case RouteName.rewardDetailScreen:
         return MaterialPageRoute(builder: (_) => const RewardDetailScreen());
-        case RouteName.profileScreen:
-        return MaterialPageRoute(builder: (_) => const ProfileScreen());
-        case RouteName.notificationScreen:
+      case RouteName.profileScreen:
+        final args = routeSettings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => ProfileScreen(user: args['user']),
+        );
+      case RouteName.notificationScreen:
         return MaterialPageRoute(builder: (_) => const NotificationScreen());
       default:
         return unDefineRoute();

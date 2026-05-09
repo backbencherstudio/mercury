@@ -1,15 +1,28 @@
-// lib/data/sources/remote/user_api_service.dart
+import 'package:mercury/data/models/user_model.dart';
 import '../../../core/network/api_clients.dart';
+import '../../../core/network/api_endpoints.dart';
+import '../local/shared_preference/shared_preference.dart';
 
 class UserApiService {
   final ApiClient apiClient;
 
   UserApiService({required this.apiClient});
 
-  // Future<List<UserModel>> fetchUsers() async {
-  //   final Response response = await apiClient.getRequest(endpoints:  ApiEndpoints.users);
-  //   final List data = response.data as List;
-  //   return data.map((json) => UserModel.fromJson(json)).toList();
-  // }
-}
+  Future<UserModel> getUser() async {
+    try {
+      final token = await SharedPreferenceData.getToken();
+      final response = await apiClient.getRequest(
+        endpoints: ApiEndpoints.user,
+        headers: {'Authorization': 'Bearer $token'},
+      );
 
+      if (response != null && response['success'] == true) {
+        return UserModel.fromJson(response['data']);
+      } else {
+        return UserModel();
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+}

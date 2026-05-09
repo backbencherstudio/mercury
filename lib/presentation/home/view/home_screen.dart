@@ -10,6 +10,7 @@ import '../../../core/route/route_name.dart';
 import '../../bottom_nav/viewmodel/bottom_nav_provider.dart';
 import '../../widgets/custom_network_image.dart';
 import '../model/home_menu_model.dart';
+import '../viewmodel/get_user_viewmodel.dart';
 import '../viewmodel/home_screen_provider.dart';
 import 'widget/custom_home_card.dart';
 
@@ -23,6 +24,8 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final userState = ref.watch(getUserProvider);
+    final userData = userState.user;
     final state = ref.watch(stateHome);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
@@ -55,10 +58,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, RouteName.profileScreen);
+                          Navigator.pushNamed(
+                            context,
+                            RouteName.profileScreen,
+                            arguments: {'user': userData},
+                          );
                         },
                         child: CustomNetworkImage(
-                          imageUrl: IconManager.networkProfile,
+                          imageUrl: userData.avatar ?? '',
                           height: 48.h,
                           width: 48.w,
                           borderRadius: 100.r,
@@ -68,20 +75,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       8.horizontalSpace,
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, RouteName.profileScreen);
+                          Navigator.pushNamed(
+                            context,
+                            RouteName.profileScreen,
+                            arguments: {'user': userData},
+                          );
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'James Clerk',
+                              userData.name ?? '',
                               style: getRegular400Style18(
                                 color: ColorManager.whiteColor,
                               ),
                             ),
                             4.verticalSpace,
                             Text(
-                              'Profile #AP-12345',
+                              'Profile : #${userData.email}',
                               style: getRegular400Style12(
                                 color: ColorManager.whiteColor,
                               ),
