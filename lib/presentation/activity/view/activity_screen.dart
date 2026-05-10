@@ -200,7 +200,7 @@ class _ActivityScreenState extends ConsumerState<ActivityScreen> {
                       child: Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: ColorManager.iconColor,
+                          color: ColorManager.primary,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Icon(

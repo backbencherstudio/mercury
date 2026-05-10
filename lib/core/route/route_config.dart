@@ -17,8 +17,9 @@ class AppRouter {
           builder: (_) => const MoreLeadActivityScreen(),
         );
       case RouteName.connectionRequestScreen:
+        final args = routeSettings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-          builder: (_) => const ConnectionRequestScreen(),
+          builder: (_) => ConnectionRequestScreen(connectionRequestId: args['id']),
         );
       case RouteName.availableScreen:
         return MaterialPageRoute(builder: (_) => const AvailableScreen());

@@ -6,8 +6,10 @@ import 'package:mercury/core/constansts/color_manger.dart';
 import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/custom_back_header.dart';
 import '../../../core/constansts/icon_manager.dart';
+import '../../../core/resource/utils.dart';
 import '../../../core/route/route_name.dart';
 import '../../bottom_nav/viewmodel/bottom_nav_provider.dart';
+import '../viewmodel/connection_request_viewmodel.dart';
 
 class ConnectionScreen extends ConsumerStatefulWidget {
   const ConnectionScreen({super.key});
@@ -18,39 +20,16 @@ class ConnectionScreen extends ConsumerStatefulWidget {
 
 class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(connectionRequestProvider.notifier).getConnectionRequest();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> data = [
-      {
-        "title": "Plumber",
-        "status": "Open",
-        "location": "Miami FI",
-        "time": "2 hours ago",
-      },
-      {
-        "title": "Electronics",
-        "status": "Open",
-        "location": "Fort Lauder dale, FI",
-        "time": "5 hours ago",
-      },
-      {
-        "title": "HVAC Technician",
-        "status": "Fulfilled",
-        "location": "Tampa. FI",
-        "time": "6 hours ago",
-      },
-      {
-        "title": "Handyman",
-        "status": "Open",
-        "location": "Orlando FI",
-        "time": "2 hours ago",
-      },
-      {
-        "title": "Roofer",
-        "status": "Fulfilled",
-        "location": "Jacksonville FI",
-        "time": "9 hours ago",
-      },
-    ];
+    final connectionRequest = ref.watch(connectionRequestProvider);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -66,16 +45,19 @@ class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
               30.verticalSpace,
               Expanded(
                 child: ListView.builder(
-                  itemCount: data.length,
+                  itemCount: connectionRequest.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    final connectData = data[index];
+                    final connectData = connectionRequest[index]!;
                     return GestureDetector(
-                      onTap: () async {
-                        await Navigator.pushNamed(
-                          context,
-                          RouteName.connectionRequestScreen,
-                        );
+                      onTap: () {
+                        if (connectData.status != "FULFILLED") {
+                          Navigator.pushNamed(
+                            context,
+                            RouteName.connectionRequestScreen,
+                            arguments: {'id': connectData.id},
+                          );
+                        }
                       },
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 16.h),
@@ -92,7 +74,7 @@ class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    connectData['title'],
+                                    connectData.trade ?? "",
                                     style: getSemiBold600Style20(
                                       color: ColorManager.black500,
                                     ),
@@ -103,17 +85,15 @@ class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
                                       vertical: 6.h,
                                     ),
                                     decoration: BoxDecoration(
-                                      color:
-                                          connectData['status'] == "Fulfilled"
+                                      color: connectData.status == "FULFILLED"
                                           ? ColorManager.backgroundPressed
                                           : ColorManager.backgroundLight,
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: Text(
-                                      connectData['status'],
+                                      connectData.status ?? "",
                                       style: getRegular400Style12(
-                                        color:
-                                            connectData['status'] == "Fulfilled"
+                                        color: connectData.status == "FULFILLED"
                                             ? ColorManager.black400
                                             : ColorManager.primary,
                                       ),
@@ -135,7 +115,7 @@ class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
                                   ),
                                   5.horizontalSpace,
                                   Text(
-                                    connectData['location'],
+                                    connectData.location ?? "",
                                     style: getRegular400Style12(
                                       color: ColorManager.black400,
                                     ),
@@ -153,7 +133,9 @@ class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
                                   ),
                                   5.horizontalSpace,
                                   Text(
-                                    connectData['time'],
+                                    Utils.calculateTimeAgo(
+                                      connectData.timeAgo ?? '',
+                                    ),
                                     style: getRegular400Style12(
                                       color: ColorManager.black400,
                                     ),

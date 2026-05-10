@@ -9,8 +9,8 @@ class ApiEndpoints {
   static const String trades = 'trades';
   static String leadActivity({required String startDate, required String endDate}) =>
     'leads/lead-activity?startDate=$startDate&endDate=$endDate';
-  static const String loadUser = 'auth/me';
-  static const String updateProfile = 'auth/update-profile';
-  static const String forgetPassword = 'auth/forgot-password';
+  static const String connectionRequestUserList = 'connection-requests/user/list';
+  static String connectionRequestDetail({required String id}) => 'connection-requests/$id';
+  static String connectionRequestStatus({required String id,required String status}) => 'connection-requests/$id/$status';
   static const String createAndagetJob = 'jobs';
 }

@@ -41,7 +41,7 @@ class ApiClient {
           headers: headers ?? {"Content-Type": "application/json"},
         ),
       );
-      // log("\n\n\nGET Request Successful: ${response.data}\n\n\n");
+      log("\n\n\nGET Request Successful: ${response.data}\n\n\n");
       return ResposeHandle.handleResponse(response);
     } catch (e) {
       if (e is DioException) {
@@ -53,30 +53,33 @@ class ApiClient {
   }
 
   /// POST request
-Future<dynamic> postRequest({
-  required String endpoints,
-  Map<String, dynamic>? body,
-  Map<String, String>? headers,
-  FormData? formData,
-}) async {
-  try {
-    final response = await _dio.post(
-      '/$endpoints',
-      data: body ?? formData,
-      options: Options(
-        headers: headers ?? {"Content-Type": "application/json"},
-      ),
-    );
-    return ResposeHandle.handleResponse(response);
-  } catch (e) {
-    if (e is DioException) {
-      // Return the user-friendly error string
-      return {"success": false, "message": ErrorHandle.handleDioError(e)};
-    } else {
-      return {"success": false, "message": "An unexpected error occurred: $e"};
+  Future<dynamic> postRequest({
+    required String endpoints,
+    Map<String, dynamic>? body,
+    Map<String, String>? headers,
+    FormData? formData,
+  }) async {
+    try {
+      final response = await _dio.post(
+        '/$endpoints',
+        data: body ?? formData,
+        options: Options(
+          headers: headers ?? {"Content-Type": "application/json"},
+        ),
+      );
+      return ResposeHandle.handleResponse(response);
+    } catch (e) {
+      if (e is DioException) {
+        // Return the user-friendly error string
+        return {"success": false, "message": ErrorHandle.handleDioError(e)};
+      } else {
+        return {
+          "success": false,
+          "message": "An unexpected error occurred: $e",
+        };
+      }
     }
   }
-}
 
   /// PUT request
   static Future<dynamic> putRequest({
