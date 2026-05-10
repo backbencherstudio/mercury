@@ -1,18 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mercury/core/constansts/color_manger.dart';
 import 'package:mercury/core/resource/style_manager.dart';
+import 'package:mercury/core/resource/utils.dart';
 import 'package:mercury/presentation/widgets/custom_back_header.dart';
 import 'package:mercury/presentation/widgets/primary_button.dart';
 import '../../../core/constansts/icon_manager.dart';
 import '../../../core/route/route_name.dart';
+import '../viewmodel/connection_request_detail_viewmodel.dart';
+import '../viewmodel/connection_status_viewmodel.dart';
 
-class ConnectionRequestScreen extends StatelessWidget {
-  const ConnectionRequestScreen({super.key});
+class ConnectionRequestScreen extends ConsumerStatefulWidget {
+  final String connectionRequestId;
+  const ConnectionRequestScreen({super.key, required this.connectionRequestId});
+
+  @override
+  ConsumerState<ConnectionRequestScreen> createState() =>
+      _ConnectionRequestScreenState();
+}
+
+class _ConnectionRequestScreenState
+    extends ConsumerState<ConnectionRequestScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(connectionRequestDetailProvider.notifier)
+          .getConnectionRequestDetail(id: widget.connectionRequestId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final connectionRequestDetail = ref.watch(connectionRequestDetailProvider);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -59,7 +82,7 @@ class ConnectionRequestScreen extends StatelessWidget {
                             ),
                             6.verticalSpace,
                             Text(
-                              "Plumber",
+                              connectionRequestDetail?.trade?.name ?? "N/A",
                               style: getMedium500Style16(
                                 color: ColorManager.black500,
                               ),
@@ -99,7 +122,7 @@ class ConnectionRequestScreen extends StatelessWidget {
                             ),
                             6.verticalSpace,
                             Text(
-                              "Miami Fl",
+                              connectionRequestDetail?.location ?? "N/A",
                               style: getMedium500Style16(
                                 color: ColorManager.black500,
                               ),
@@ -124,7 +147,9 @@ class ConnectionRequestScreen extends StatelessWidget {
                         ),
                         4.horizontalSpace,
                         Text(
-                          "2 hours ago",
+                          Utils.calculateTimeAgo(
+                            connectionRequestDetail?.trade?.createdAt ?? "N/A",
+                          ),
                           style: getRegular400Style14(
                             color: ColorManager.black400,
                           ),
@@ -180,7 +205,17 @@ class ConnectionRequestScreen extends StatelessWidget {
               PrimaryButton(
                 title: 'I Know Someone',
                 onTap: () {
-                  Navigator.pushNamed(context, RouteName.availableScreen);
+                  ref
+                      .read(connectionRequestStatusProvider.notifier)
+                      .getConnectionRequestStatus(
+                        id: widget.connectionRequestId,
+                        status: "FULFILLED",
+                      );
+
+                  Navigator.pushReplacementNamed(
+                    context,
+                    RouteName.fullfilledScreen,
+                  );
                 },
               ),
 
@@ -191,7 +226,16 @@ class ConnectionRequestScreen extends StatelessWidget {
                 border: Border.all(color: ColorManager.primary),
                 textStyle: getSemiBold600Style16(color: ColorManager.primary),
                 onTap: () {
-                  Navigator.pushNamed(context, RouteName.fullfilledScreen);
+                  ref
+                      .read(connectionRequestStatusProvider.notifier)
+                      .getConnectionRequestStatus(
+                        id: widget.connectionRequestId,
+                        status: "CLOSED",
+                      );
+                  Navigator.pushReplacementNamed(
+                    context,
+                    RouteName.availableScreen,
+                  );
                 },
               ),
             ],
