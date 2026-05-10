@@ -43,6 +43,7 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
+                        width: double.infinity,
                         padding: EdgeInsets.all(24.r),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
@@ -122,51 +123,39 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 6.h),
 
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 14.w,
-                                    vertical: 11.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.backgroundLight,
-                                    borderRadius: BorderRadius.circular(16.r),
-                                    border: Border.all(
-                                      color: ColorManager.black100,
+                            if (user.trades != null && user.trades!.isNotEmpty)
+                              Wrap(
+                                spacing: 10.w,
+                                runSpacing: 10.h,
+                                children: user.trades!.map((trade) {
+                                  return Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 14.w,
+                                      vertical: 11.h,
                                     ),
-                                  ),
-                                  child: Text(
-                                    "Plumbing",
-                                    style: getMedium500Style16(
-                                      color: ColorManager.black600,
+                                    decoration: BoxDecoration(
+                                      color: ColorManager.backgroundLight,
+                                      borderRadius: BorderRadius.circular(16.r),
+                                      border: Border.all(
+                                        color: ColorManager.black100,
+                                      ),
                                     ),
-                                  ),
+                                    child: Text(
+                                      trade.name ?? "Unknown",
+                                      style: getMedium500Style16(
+                                        color: ColorManager.black600,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              )
+                            else
+                              Text(
+                                "No trades added yet",
+                                style: getMedium500Style16(
+                                  color: ColorManager.black300,
                                 ),
-
-                                6.horizontalSpace,
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 14.w,
-                                    vertical: 11.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.backgroundLight,
-                                    borderRadius: BorderRadius.circular(16.r),
-                                    border: Border.all(
-                                      color: ColorManager.black100,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "Electrician",
-                                    style: getMedium500Style16(
-                                      color: ColorManager.black600,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
                           ],
                         ),
                       ),
@@ -223,16 +212,19 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             24.verticalSpace,
 
-                            CustomInfo(title: "Total Leads Sent", value: "20"),
+                            CustomInfo(
+                              title: "Total Leads Sent",
+                              value: user.totalLeadsSent.toString(),
+                            ),
                             24.verticalSpace,
                             CustomInfo(
                               title: "Total Gifts Received",
-                              value: "10",
+                              value: user.totalGiftsReceived.toString(),
                             ),
                             24.verticalSpace,
                             CustomInfo(
                               title: "Total Connection fulfilled By You",
-                              value: "4",
+                              value: user.totalConnectionFulfilled.toString(),
                             ),
                           ],
                         ),
