@@ -208,7 +208,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                             password: _passwordController.text.trim(),
                           );
                       if (res.isSuccess) {
-                        //if (!context.mounted) return;
+                        if (!context.mounted) return;
                         Navigator.pushNamed(context, RouteName.bottomNavScreen);
                       }
                     },

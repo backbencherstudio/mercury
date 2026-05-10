@@ -26,8 +26,10 @@ class _SplashScreenState extends State<SplashScreen> {
     if (mounted) {
       final token = await SharedPreferenceData.getToken();
       if (token != null && token.isNotEmpty) {
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacementNamed(context, RouteName.bottomNavScreen);
       } else {
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacementNamed(context, RouteName.signInScreen);
       }
     }

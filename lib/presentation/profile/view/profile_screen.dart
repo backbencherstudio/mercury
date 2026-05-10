@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mercury/core/constansts/icon_manager.dart';
 import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/custom_back_header.dart';
 import 'package:mercury/presentation/widgets/custom_network_image.dart';
@@ -64,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
                             Stack(
                               children: [
                                 CustomNetworkImage(
-                                  imageUrl: IconManager.networkProfile,
+                                  imageUrl: user.avatar ?? 'N/A',
                                   height: 110.h,
                                   width: 110.w,
                                   borderRadius: 100.r,
@@ -89,18 +88,30 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             ),
                             24.verticalSpace,
-                            CustomInfo(title: "User Name", value: "Corny Bias"),
+                            CustomInfo(
+                              title: "User Name",
+                              value: user.name ?? "N/A",
+                            ),
                             24.verticalSpace,
                             CustomInfo(
                               title: "Phone No.",
-                              value: "+32 1232143",
+                              value: user.phoneNumber ?? "N/A",
                             ),
                             24.verticalSpace,
-                            CustomInfo(title: "Work at Company", value: "N/A"),
+                            CustomInfo(
+                              title: "Work at Company",
+                              value: user.workAtCompany ?? "N/A",
+                            ),
                             24.verticalSpace,
-                            CustomInfo(title: "Country", value: "America"),
+                            CustomInfo(
+                              title: "Country",
+                              value: user.country ?? "N/A",
+                            ),
                             24.verticalSpace,
-                            CustomInfo(title: "City", value: "New York"),
+                            CustomInfo(
+                              title: "City",
+                              value: user.city ?? "N/A",
+                            ),
                             24.verticalSpace,
 
                             Text(
@@ -181,12 +192,12 @@ class ProfileScreen extends StatelessWidget {
 
                             CustomInfo(
                               title: "Qualified Leads Fee",
-                              value: "\$ 100",
+                              value: "\$ ${user.qualifiedLeadsFee}",
                             ),
                             24.verticalSpace,
                             CustomInfo(
                               title: "Conversation Fee",
-                              value: "\$ 1,500",
+                              value: "\$ ${user.conversionFee}",
                             ),
                           ],
                         ),
