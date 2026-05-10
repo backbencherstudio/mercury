@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mercury/core/constansts/icon_manager.dart';
 import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/custom_back_header.dart';
 import 'package:mercury/presentation/widgets/custom_network_image.dart';
@@ -44,6 +43,7 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
+                        width: double.infinity,
                         padding: EdgeInsets.all(24.r),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
@@ -64,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                             Stack(
                               children: [
                                 CustomNetworkImage(
-                                  imageUrl: IconManager.networkProfile,
+                                  imageUrl: user.avatar ?? 'N/A',
                                   height: 110.h,
                                   width: 110.w,
                                   borderRadius: 100.r,
@@ -89,18 +89,30 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             ),
                             24.verticalSpace,
-                            CustomInfo(title: "User Name", value: "Corny Bias"),
+                            CustomInfo(
+                              title: "User Name",
+                              value: user.name ?? "N/A",
+                            ),
                             24.verticalSpace,
                             CustomInfo(
                               title: "Phone No.",
-                              value: "+32 1232143",
+                              value: user.phoneNumber ?? "N/A",
                             ),
                             24.verticalSpace,
-                            CustomInfo(title: "Work at Company", value: "N/A"),
+                            CustomInfo(
+                              title: "Work at Company",
+                              value: user.workAtCompany ?? "N/A",
+                            ),
                             24.verticalSpace,
-                            CustomInfo(title: "Country", value: "America"),
+                            CustomInfo(
+                              title: "Country",
+                              value: user.country ?? "N/A",
+                            ),
                             24.verticalSpace,
-                            CustomInfo(title: "City", value: "New York"),
+                            CustomInfo(
+                              title: "City",
+                              value: user.city ?? "N/A",
+                            ),
                             24.verticalSpace,
 
                             Text(
@@ -111,51 +123,39 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 6.h),
 
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 14.w,
-                                    vertical: 11.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.backgroundLight,
-                                    borderRadius: BorderRadius.circular(16.r),
-                                    border: Border.all(
-                                      color: ColorManager.black100,
+                            if (user.trades != null && user.trades!.isNotEmpty)
+                              Wrap(
+                                spacing: 10.w,
+                                runSpacing: 10.h,
+                                children: user.trades!.map((trade) {
+                                  return Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 14.w,
+                                      vertical: 11.h,
                                     ),
-                                  ),
-                                  child: Text(
-                                    "Plumbing",
-                                    style: getMedium500Style16(
-                                      color: ColorManager.black600,
+                                    decoration: BoxDecoration(
+                                      color: ColorManager.backgroundLight,
+                                      borderRadius: BorderRadius.circular(16.r),
+                                      border: Border.all(
+                                        color: ColorManager.black100,
+                                      ),
                                     ),
-                                  ),
+                                    child: Text(
+                                      trade.name ?? "Unknown",
+                                      style: getMedium500Style16(
+                                        color: ColorManager.black600,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              )
+                            else
+                              Text(
+                                "No trades added yet",
+                                style: getMedium500Style16(
+                                  color: ColorManager.black300,
                                 ),
-
-                                6.horizontalSpace,
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 14.w,
-                                    vertical: 11.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.backgroundLight,
-                                    borderRadius: BorderRadius.circular(16.r),
-                                    border: Border.all(
-                                      color: ColorManager.black100,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "Electrician",
-                                    style: getMedium500Style16(
-                                      color: ColorManager.black600,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
                           ],
                         ),
                       ),
@@ -181,12 +181,12 @@ class ProfileScreen extends StatelessWidget {
 
                             CustomInfo(
                               title: "Qualified Leads Fee",
-                              value: "\$ 100",
+                              value: "\$ ${user.qualifiedLeadsFee}",
                             ),
                             24.verticalSpace,
                             CustomInfo(
                               title: "Conversation Fee",
-                              value: "\$ 1,500",
+                              value: "\$ ${user.conversionFee}",
                             ),
                           ],
                         ),
@@ -212,16 +212,19 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             24.verticalSpace,
 
-                            CustomInfo(title: "Total Leads Sent", value: "20"),
+                            CustomInfo(
+                              title: "Total Leads Sent",
+                              value: user.totalLeadsSent.toString(),
+                            ),
                             24.verticalSpace,
                             CustomInfo(
                               title: "Total Gifts Received",
-                              value: "10",
+                              value: user.totalGiftsReceived.toString(),
                             ),
                             24.verticalSpace,
                             CustomInfo(
                               title: "Total Connection fulfilled By You",
-                              value: "4",
+                              value: user.totalConnectionFulfilled.toString(),
                             ),
                           ],
                         ),

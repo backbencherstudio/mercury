@@ -4,13 +4,23 @@ import 'package:mercury/core/constansts/color_manger.dart';
 import 'package:mercury/core/resource/style_manager.dart';
 
 import '../../widgets/custom_back_header.dart';
-import '../model/more_lead_model.dart';
+import '../../../core/resource/utils.dart';
+import '../../../data/models/lead_activity_model.dart' as data_model;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../viewmodel/lead_activity_viewmodel.dart';
 
-class MoreLeadActivityScreen extends StatelessWidget {
+class MoreLeadActivityScreen extends ConsumerWidget {
   const MoreLeadActivityScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(leadActivityProvider);
+    final activityData = ref.read(leadActivityProvider.notifier).leadActivityData;
+
+    final submittedItems = activityData?.submitted?.items ?? [];
+    final qualifiedItems = activityData?.qualified?.items ?? [];
+    final conversionItems = activityData?.conversions?.items ?? [];
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -25,26 +35,26 @@ class MoreLeadActivityScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _sectionTitle(
-                        "Total Lead submitted (${totalLeadList.length})",
+                        "Total Lead submitted (${submittedItems.length})",
                       ),
                       const SizedBox(height: 10),
-                      _leadCard(totalLeadList),
+                      _leadCard(submittedItems),
 
                       const SizedBox(height: 20),
 
                       _sectionTitle(
-                        "Qualified Leads (${qualifiedLeadList.length})",
+                        "Qualified Leads (${qualifiedItems.length})",
                       ),
                       const SizedBox(height: 10),
-                      _leadCard(qualifiedLeadList),
+                      _leadCard(qualifiedItems),
 
                       const SizedBox(height: 20),
 
                       _sectionTitle(
-                        "Conversions (${conversationLeadList.length})",
+                        "Conversions (${conversionItems.length})",
                       ),
                       const SizedBox(height: 10),
-                      _leadCard(conversationLeadList),
+                      _leadCard(conversionItems),
                     ],
                   ),
                 ),
@@ -63,7 +73,13 @@ class MoreLeadActivityScreen extends StatelessWidget {
     );
   }
 
-  Widget _leadCard(List<MoreLeadModel> leadList) {
+  Widget _leadCard(List<data_model.Items> leadList) {
+    if (leadList.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Text("No data found.", style: getRegular400Style14(color: ColorManager.black400)),
+      );
+    }
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
@@ -89,7 +105,7 @@ class MoreLeadActivityScreen extends StatelessWidget {
     );
   }
 
-  Widget _leadRow(MoreLeadModel lead) {
+  Widget _leadRow(data_model.Items lead) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       child: Row(
@@ -103,19 +119,23 @@ class MoreLeadActivityScreen extends StatelessWidget {
             child: Icon(Icons.star, size: 24.sp, color: ColorManager.primary),
           ),
           10.horizontalSpace,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                lead.title,
-                style: getRegular400Style14(color: ColorManager.black500),
-              ),
-              2.verticalSpace,
-              Text(
-                lead.subtext,
-                style: getRegular400Style14(color: ColorManager.black400),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  lead.address ?? 'No Address',
+                  style: getRegular400Style14(color: ColorManager.black500),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                2.verticalSpace,
+                Text(
+                  Utils.calculateTimeAgo(lead.createdAt ?? ''),
+                  style: getRegular400Style14(color: ColorManager.black400),
+                ),
+              ],
+            ),
           ),
         ],
       ),

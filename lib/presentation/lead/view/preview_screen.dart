@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,10 +6,13 @@ import 'package:mercury/core/constansts/icon_manager.dart';
 import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/primary_button.dart';
 
+import 'dart:io';
+
 import '../../widgets/custom_back_header.dart';
 
 class PreviewScreen extends StatelessWidget {
-  const PreviewScreen({super.key});
+  final Map<String, dynamic> data;
+  const PreviewScreen({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +42,11 @@ class PreviewScreen extends StatelessWidget {
                           children: [
                             PreviewInfo(
                               title: "Address",
-                              value: "123 Main St, Los Angeles",
+                              value: data['address'] ?? "N/A",
                               icon: IconManager.map,
-                              onEdit: () {},
+                              onEdit: () {
+                                Navigator.pop(context);
+                              },
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -51,9 +55,11 @@ class PreviewScreen extends StatelessWidget {
 
                             PreviewInfo(
                               title: "Homeowner's Name",
-                              value: "John Smith",
+                              value: data['name'] ?? "N/A",
                               icon: IconManager.user,
-                              onEdit: () {},
+                              onEdit: () {
+                                Navigator.pop(context);
+                              },
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -62,9 +68,11 @@ class PreviewScreen extends StatelessWidget {
 
                             PreviewInfo(
                               title: "Homeowner's Phone",
-                              value: "+33 01238324",
+                              value: data['phone'] ?? "N/A",
                               icon: IconManager.calling,
-                              onEdit: () {},
+                              onEdit: () {
+                                Navigator.pop(context);
+                              },
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -73,9 +81,11 @@ class PreviewScreen extends StatelessWidget {
 
                             PreviewInfo(
                               title: "Trade",
-                              value: "Plumbing",
+                              value: data['trade'] ?? "N/A",
                               icon: IconManager.personPlus,
-                              onEdit: () {},
+                              onEdit: () {
+                                Navigator.pop(context);
+                              },
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -84,29 +94,50 @@ class PreviewScreen extends StatelessWidget {
 
                             PreviewInfo(
                               title: "Notes",
-                              value:
-                                  "The lead is located on 123 Main St. The owner’s name is John Smith. He has some roof leaking issue. I’ve shared some images based on specific objective. Please see the images below for this specific lead.",
+                              value: data['notes'] ?? "N/A",
                               icon: IconManager.personPlus,
-                              onEdit: () {},
+                              onEdit: () {
+                                Navigator.pop(context);
+                              },
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h),
                               child: Divider(color: ColorManager.black50),
                             ),
                             const SizedBox(height: 12),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                _buildImageTile("Image1.jpg", "images1.jpg"),
-                                _buildImageTile("image.jpg", "image12.jpg"),
-                                _buildImageTile("image2.jpg", "image2.jpg"),
-                              ],
-                            ),
+                            if (data['files'] != null &&
+                                (data['files'] as List).isNotEmpty)
+                              GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: (data['files'] as List).length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      crossAxisSpacing: 10.w,
+                                      mainAxisSpacing: 10.h,
+                                      childAspectRatio: 1,
+                                    ),
+                                itemBuilder: (context, index) {
+                                  final file =
+                                      (data['files'] as List<File>)[index];
+                                  return _buildImageTile(
+                                    file.path.split('/').last,
+                                    file,
+                                  );
+                                },
+                              ),
                           ],
                         ),
                       ),
-                      20.verticalSpace,
-                      PrimaryButton(title: 'Submit', onTap: () {}),
+                      40.verticalSpace,
+                      PrimaryButton(
+                        title: 'Submit',
+                        onTap: () {
+                          Navigator.pop(context, true);
+                        },
+                      ),
+                      40.verticalSpace,
                     ],
                   ),
                 ),
@@ -118,24 +149,21 @@ class PreviewScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildImageTile(String displayName, String fileName) {
+  Widget _buildImageTile(String displayName, File file) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-            color: const Color(0xFFF5F5F5),
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.grey.shade300),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: const Icon(
-              CupertinoIcons.photo,
-              size: 50,
-              color: Colors.grey,
-            ), // Replace with real Image.file() later
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFF5F5F5),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.grey.shade300),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.file(file, fit: BoxFit.cover),
+            ),
           ),
         ),
         const SizedBox(height: 6),
@@ -143,6 +171,8 @@ class PreviewScreen extends StatelessWidget {
           displayName,
           style: const TextStyle(fontSize: 13, color: Colors.black87),
           textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
@@ -174,7 +204,7 @@ class PreviewInfo extends StatelessWidget {
             Text(title, style: getMedium500Style16(color: ColorManager.black)),
             Spacer(),
             GestureDetector(
-              onTap: () {},
+              onTap: () => onEdit(),
               child: SvgPicture.asset(
                 IconManager.edit,
                 height: 20.h,

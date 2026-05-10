@@ -201,15 +201,20 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     title: 'Login',
                     isLoading: ref.watch(authProvider),
                     onTap: () async {
-                      final res = await ref
-                          .read(authProvider.notifier)
-                          .login(
-                            email: _userNameController.text.trim(),
-                            password: _passwordController.text.trim(),
+                      if (_formKey.currentState!.validate()) {
+                        final res = await ref
+                            .read(authProvider.notifier)
+                            .login(
+                              email: _userNameController.text.trim(),
+                              password: _passwordController.text.trim(),
+                            );
+                        if (res.isSuccess) {
+                          if (!context.mounted) return;
+                          Navigator.pushNamed(
+                            context,
+                            RouteName.bottomNavScreen,
                           );
-                      if (res.isSuccess) {
-                        //if (!context.mounted) return;
-                        Navigator.pushNamed(context, RouteName.bottomNavScreen);
+                        }
                       }
                     },
                   ),

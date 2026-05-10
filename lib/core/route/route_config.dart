@@ -10,7 +10,8 @@ class AppRouter {
       case RouteName.bottomNavScreen:
         return MaterialPageRoute(builder: (_) => const BottomNavScreen());
       case RouteName.previewScreen:
-        return MaterialPageRoute(builder: (_) => const PreviewScreen());
+        final args = routeSettings.arguments as Map<String, dynamic>? ?? {};
+        return MaterialPageRoute(builder: (_) => PreviewScreen(data: args));
       case RouteName.moreLeadActivityScreen:
         return MaterialPageRoute(
           builder: (_) => const MoreLeadActivityScreen(),
