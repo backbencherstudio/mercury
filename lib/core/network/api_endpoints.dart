@@ -7,7 +7,8 @@ class ApiEndpoints {
   static const String leads = 'leads';
   static const String leadsAll = 'leads/all';
   static const String trades = 'trades';
-  static const String resendOtp = 'auth/resend-verification-email';
+  static String leadActivity({required String startDate, required String endDate}) =>
+    'leads/lead-activity?startDate=$startDate&endDate=$endDate';
   static const String loadUser = 'auth/me';
   static const String updateProfile = 'auth/update-profile';
   static const String forgetPassword = 'auth/forgot-password';

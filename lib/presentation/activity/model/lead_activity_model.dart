@@ -5,7 +5,11 @@ class LeadActivityModel {
   final String title;
   final String icon;
 
-  LeadActivityModel({required this.number, required this.title, required this.icon});
+  LeadActivityModel({
+    required this.number,
+    required this.title,
+    required this.icon,
+  });
 }
 
 List<LeadActivityModel> leadActivityList = [

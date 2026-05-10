@@ -29,4 +29,5 @@ class IconManager {
   static const String user = '$baseUrl/user.svg';
   static const String calling = '$baseUrl/calling.svg';
   static const String edit = '$baseUrl/edit.svg';
+  static const String success = '$baseUrl/success.svg';
 }
