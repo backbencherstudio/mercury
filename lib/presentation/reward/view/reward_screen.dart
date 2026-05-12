@@ -57,17 +57,13 @@ class _RewardScreenState extends ConsumerState<RewardScreen> {
                   10.verticalSpace,
                   Text(
                     "You've Received A Gift!",
-                    style: getSemiBold600Style24(
-                      color: ColorManager.black500,
-                    ),
+                    style: getSemiBold600Style24(color: ColorManager.black500),
                   ),
                   10.verticalSpace,
                   Text(
                     "Click the button to see what's inside the gift",
                     textAlign: TextAlign.center,
-                    style: getRegular400Style16(
-                      color: ColorManager.black400,
-                    ),
+                    style: getRegular400Style16(color: ColorManager.black400),
                   ),
                   20.verticalSpace,
                   PrimaryButton(
@@ -84,9 +80,7 @@ class _RewardScreenState extends ConsumerState<RewardScreen> {
               30.verticalSpace,
               Text(
                 "Gift History",
-                style: getSemiBold600Style20(
-                  color: ColorManager.black500,
-                ),
+                style: getSemiBold600Style20(color: ColorManager.black500),
               ),
               15.verticalSpace,
               // Gift Cards List
@@ -96,60 +90,75 @@ class _RewardScreenState extends ConsumerState<RewardScreen> {
                         child: Text(
                           "No rewards found.",
                           style: getRegular400Style16(
-                              color: ColorManager.black400),
+                            color: ColorManager.black400,
+                          ),
                         ),
                       )
-                    : ListView.builder(
-                        itemCount: giftCards.length,
-                        itemBuilder: (context, index) {
-                          final card = giftCards[index];
-                          return Container(
-                            margin: EdgeInsets.only(bottom: 15.h),
-                            padding: EdgeInsets.all(16.r),
-                            decoration: BoxDecoration(
-                              color: ColorManager.whiteColor,
-                              border: Border.all(color: ColorManager.black50),
-                              borderRadius: BorderRadius.circular(12.r),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        card?.giftCard?.name ?? "Gift Card",
-                                        style: getSemiBold600Style18(
-                                            color: ColorManager.primary),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    10.horizontalSpace,
-                                    Text(
-                                      Utils.calculateTimeAgo(card?.sentAt ?? ""),
-                                      style: getRegular400Style12(
-                                          color: ColorManager.black400),
-                                    ),
-                                  ],
-                                ),
-                                10.verticalSpace,
-                                Text(
-                                  "User: ${card?.user?.name ?? 'N/A'}",
-                                  style: getMedium500Style14(
-                                      color: ColorManager.black500),
-                                ),
-                                4.verticalSpace,
-                                Text(
-                                  "Email: ${card?.user?.email ?? 'N/A'}",
-                                  style: getRegular400Style12(
-                                      color: ColorManager.black400),
-                                ),
-                              ],
-                            ),
-                          );
+                    : RefreshIndicator(
+                        onRefresh: () async {
+                          await ref
+                              .read(giftCardProvider.notifier)
+                              .getGiftCardStatus();
                         },
+                        child: ListView.builder(
+                          itemCount: giftCards.length,
+                          itemBuilder: (context, index) {
+                            final card = giftCards[index];
+                            return Container(
+                              margin: EdgeInsets.only(bottom: 15.h),
+                              padding: EdgeInsets.all(16.r),
+                              decoration: BoxDecoration(
+                                color: ColorManager.whiteColor,
+                                border: Border.all(color: ColorManager.black50),
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          card?.giftCard?.name ?? "Gift Card",
+                                          style: getSemiBold600Style18(
+                                            color: ColorManager.primary,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      10.horizontalSpace,
+                                      Text(
+                                        Utils.calculateTimeAgo(
+                                          card?.sentAt ?? "",
+                                        ),
+                                        style: getRegular400Style12(
+                                          color: ColorManager.black400,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  10.verticalSpace,
+                                  Text(
+                                    "User: ${card?.user?.name ?? 'N/A'}",
+                                    style: getMedium500Style14(
+                                      color: ColorManager.black500,
+                                    ),
+                                  ),
+                                  4.verticalSpace,
+                                  Text(
+                                    "Email: ${card?.user?.email ?? 'N/A'}",
+                                    style: getRegular400Style12(
+                                      color: ColorManager.black400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
               ),
               20.verticalSpace,

@@ -58,62 +58,69 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
               10.verticalSpace,
 
               Expanded(
-                child: ListView.separated(
-                  itemCount: notifications.length,
-                  itemBuilder: (context, index) {
-                    final notification = notifications[index];
-                    return ListTile(
-                      leading: SvgPicture.asset(
-                        IconManager.activity,
-                        height: 48.h,
-                        width: 48.w,
-                      ),
-                      trailing: Container(
-                        height: 8.h,
-                        width: 8.w,
-                        decoration: BoxDecoration(
-                          color: ColorManager.errorColor,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      title: Text(
-                        notification?.notificationEvent?.type ?? "",
-                        style: getSemiBold600Style16(
-                          color: ColorManager.titleText,
-                        ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            notification?.notificationEvent?.text ?? "",
-                            style: getRegular400Style14(
-                              color: ColorManager.subtitleText,
-                              height: 1.5,
-                            ),
-                          ),
-                          8.verticalSpace,
-                          Text(
-                            Utils.calculateTimeAgo(
-                              notification?.createdAt ?? "",
-                            ),
-                            style: getRegular400Style14(
-                              color: ColorManager.subtitleText,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    await ref
+                        .read(notificationProvider.notifier)
+                        .getNotifications();
                   },
-                  separatorBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      child: Divider(
-                        thickness: 1,
-                        color: ColorManager.borderColor,
-                      ),
-                    );
-                  },
+                  child: ListView.separated(
+                    itemCount: notifications.length,
+                    itemBuilder: (context, index) {
+                      final notification = notifications[index];
+                      return ListTile(
+                        leading: SvgPicture.asset(
+                          IconManager.activity,
+                          height: 48.h,
+                          width: 48.w,
+                        ),
+                        trailing: Container(
+                          height: 8.h,
+                          width: 8.w,
+                          decoration: BoxDecoration(
+                            color: ColorManager.errorColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        title: Text(
+                          notification?.notificationEvent?.type ?? "",
+                          style: getSemiBold600Style16(
+                            color: ColorManager.titleText,
+                          ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              notification?.notificationEvent?.text ?? "",
+                              style: getRegular400Style14(
+                                color: ColorManager.subtitleText,
+                                height: 1.5,
+                              ),
+                            ),
+                            8.verticalSpace,
+                            Text(
+                              Utils.calculateTimeAgo(
+                                notification?.createdAt ?? "",
+                              ),
+                              style: getRegular400Style14(
+                                color: ColorManager.subtitleText,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
+                        child: Divider(
+                          thickness: 1,
+                          color: ColorManager.borderColor,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

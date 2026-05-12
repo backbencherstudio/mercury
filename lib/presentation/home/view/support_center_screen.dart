@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mercury/core/constansts/color_manger.dart';
 import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/custom_back_header.dart';
 import 'package:mercury/presentation/widgets/primary_button.dart';
 import '../../../core/route/route_name.dart';
+import '../viewmodel/support_viewmodel.dart';
 
-class SupportCenterScreen extends StatelessWidget {
+class SupportCenterScreen extends ConsumerStatefulWidget {
   const SupportCenterScreen({super.key});
 
+  @override
+  ConsumerState<SupportCenterScreen> createState() =>
+      _SupportCenterScreenState();
+}
+
+class _SupportCenterScreenState extends ConsumerState<SupportCenterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,11 +62,17 @@ class SupportCenterScreen extends StatelessWidget {
 
                       PrimaryButton(
                         title: 'Please Contact Me',
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RouteName.supportCenterRequestScreen,
-                          );
+                        onTap: () async {
+                          final response = await ref
+                              .read(supportRequestProvider.notifier)
+                              .supportRequest();
+                          if (response.isSuccess) {
+                            Navigator.pushNamed(
+                              // ignore: use_build_context_synchronously
+                              context,
+                              RouteName.supportCenterRequestScreen,
+                            );
+                          }
                         },
                       ),
 
