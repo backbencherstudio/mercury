@@ -15,4 +15,5 @@ class ApiEndpoints {
   static const String createAndagetJob = 'jobs';
   static const String notifications = 'admin/notification';
   static const String giftcardStatus = 'giftcard/user-wise-gift';
+  static const String supportRequest = 'support/request';
 }
