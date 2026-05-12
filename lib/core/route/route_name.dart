@@ -15,5 +15,5 @@ class RouteName {
   static const String rewardDetailScreen = "/RewardDetailScreen";
   static const String profileScreen = "/ProfileScreen";
   static const String notificationScreen = "/NotificationScreen";
-
+  static const String addNewLeadSuccessScreen = "/AddNewLeadSuccessScreen";
   }

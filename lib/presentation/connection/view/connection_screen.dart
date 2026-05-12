@@ -44,9 +44,14 @@ class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
               ),
               30.verticalSpace,
               Expanded(
-                child: ListView.builder(
-                  itemCount: connectionRequest.length,
-                  shrinkWrap: true,
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    await ref.read(connectionRequestProvider.notifier).getConnectionRequest();
+                  },
+                  child: ListView.builder(
+                    itemCount: connectionRequest.length,
+                    shrinkWrap: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     final connectData = connectionRequest[index]!;
                     return GestureDetector(
@@ -150,7 +155,8 @@ class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
                   },
                 ),
               ),
-            ],
+            ),
+          ],
           ),
         ),
       ),

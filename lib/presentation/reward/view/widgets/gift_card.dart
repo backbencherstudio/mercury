@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../core/constansts/color_manger.dart';
-import '../../../core/resource/style_manager.dart';
+import '../../../../core/constansts/color_manger.dart';
+import '../../../../core/resource/style_manager.dart';
 
 class GiftCard extends StatelessWidget {
   const GiftCard({

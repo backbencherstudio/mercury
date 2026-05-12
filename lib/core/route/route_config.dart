@@ -44,6 +44,8 @@ class AppRouter {
         );
       case RouteName.notificationScreen:
         return MaterialPageRoute(builder: (_) => const NotificationScreen());
+      case RouteName.addNewLeadSuccessScreen:
+        return MaterialPageRoute(builder: (_) => const AddNewLeadSuccessScreen());
       default:
         return unDefineRoute();
     }

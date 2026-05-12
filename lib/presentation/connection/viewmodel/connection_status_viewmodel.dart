@@ -21,14 +21,22 @@ class ConnectionRequestViewModel
   final ConnectionRequestRepository repository;
   ConnectionRequestViewModel({required this.repository}) : super(null);
 
-  Future<void> getConnectionRequestStatus({
+  Future<bool> getConnectionRequestStatus({
     required String id,
     required String status,
   }) async {
-    final response = await repository.getConnectionRequestStatus(
-      id: id,
-      status: status,
-    );
-    state = response;
+    try {
+      final response = await repository.getConnectionRequestStatus(
+        id: id,
+        status: status,
+      );
+      if (response != null) {
+        state = response;
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
   }
 }
