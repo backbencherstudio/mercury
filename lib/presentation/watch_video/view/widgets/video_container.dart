@@ -34,7 +34,6 @@ class _VideoContainerState extends State<VideoContainer> {
   late VideoPlayerController _videoController;
   ChewieController? _chewieController;
   int _maxPlayedSeconds = 0;
-
   @override
   void initState() {
     super.initState();
@@ -46,24 +45,28 @@ class _VideoContainerState extends State<VideoContainer> {
     _videoController.addListener(_videoListener);
 
     _videoController.initialize().then((_) {
-      _chewieController = ChewieController(
-        videoPlayerController: _videoController,
-        autoPlay: false,
-        looping: false,
-        allowFullScreen: true,
-        allowMuting: true,
-        showControls: true,
-        showOptions: false,
-        materialProgressColors: ChewieProgressColors(
-          playedColor: const Color(0xFF7ED957),
-          handleColor: const Color(0xFF7ED957),
-          bufferedColor: Colors.white38,
-          backgroundColor: Colors.white24,
-        ),
-      );
-
+      _initChewieController();
       setState(() {});
     });
+  }
+
+  void _initChewieController() {
+    _chewieController?.dispose();
+    _chewieController = ChewieController(
+      videoPlayerController: _videoController,
+      autoPlay: false,
+      looping: false,
+      allowFullScreen: true,
+      allowMuting: true,
+      showControls: true,
+      showOptions: false,
+      materialProgressColors: ChewieProgressColors(
+        playedColor: const Color(0xFF7ED957),
+        handleColor: const Color(0xFF7ED957),
+        bufferedColor: Colors.white38,
+        backgroundColor: Colors.white24,
+      ),
+    );
   }
 
   void _videoListener() {
@@ -82,6 +85,15 @@ class _VideoContainerState extends State<VideoContainer> {
     if (currentPosition > _maxPlayedSeconds) {
       _maxPlayedSeconds = currentPosition;
     }
+
+    // Prevent pausing during unskippable duration
+    if (!_videoController.value.isPlaying &&
+        currentPosition > 0 &&
+        currentPosition < widget.unskippableDuration) {
+      _videoController.play();
+    }
+    
+    if (mounted) setState(() {});
   }
 
   @override
@@ -104,24 +116,19 @@ class _VideoContainerState extends State<VideoContainer> {
         children: [
           /// 🔥 VIDEO WITH CHEWIE
           Center(
-            child: _chewieController != null &&
+            child:
+                _chewieController != null &&
                     _chewieController!.videoPlayerController.value.isInitialized
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(12.r),
-                    child: AspectRatio(
-                      aspectRatio:
-                          _chewieController!
-                              .videoPlayerController
-                              .value
-                              .aspectRatio,
+                    child: SizedBox(
+                      height: 200.h,
                       child: Chewie(controller: _chewieController!),
                     ),
                   )
                 : SizedBox(
                     height: 180.h,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                    child: const Center(child: CircularProgressIndicator()),
                   ),
           ),
 
@@ -166,16 +173,12 @@ class _VideoContainerState extends State<VideoContainer> {
               children: [
                 Text(
                   widget.subtitle,
-                  style: getMedium500Style14(
-                    color: ColorManager.blueText,
-                  ),
+                  style: getMedium500Style14(color: ColorManager.blueText),
                 ),
                 12.verticalSpace,
                 Text(
                   widget.description,
-                  style: getRegular400Style12(
-                    color: ColorManager.black400,
-                  ),
+                  style: getRegular400Style12(color: ColorManager.black400),
                 ),
               ],
             ),

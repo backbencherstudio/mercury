@@ -26,13 +26,12 @@ class BottomNavScreen extends ConsumerWidget {
       extendBody: true,
       body: IndexedStack(index: currentIndex, children: _screens),
 
-      /// 🔥 FIXED NAV BAR
       bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(16),
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        margin: EdgeInsets.all(16.r),
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
         decoration: BoxDecoration(
           color: ColorManager.whiteColor,
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(25.r),
           boxShadow: [
             BoxShadow(
               color: ColorManager.shadowColor,
@@ -107,7 +106,7 @@ class BottomNavScreen extends ConsumerWidget {
 
         decoration: BoxDecoration(
           color: isSelected ? selectedColor : Colors.transparent,
-          borderRadius: BorderRadius.circular(18), // 🔥 SAME SHAPE
+          borderRadius: BorderRadius.circular(18.r),
         ),
 
         child: Column(
@@ -115,17 +114,17 @@ class BottomNavScreen extends ConsumerWidget {
           children: [
             Image.asset(
               icon,
-              height: 22,
-              width: 22,
+              height: 22.h,
+              width: 22.w,
               color: isSelected ? Colors.white : unselectedColor,
             ),
 
-            const SizedBox(height: 4),
+            4.verticalSpace,
 
             Text(
               title,
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 14.sp,
                 color: isSelected ? Colors.white : unselectedColor,
                 fontWeight: FontWeight.w500,
               ),
