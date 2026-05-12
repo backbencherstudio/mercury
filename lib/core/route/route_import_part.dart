@@ -8,7 +8,7 @@ import '../../presentation/connection/view/connection_request_screen.dart';
 import '../../presentation/connection/view/fullfilled_screen.dart';
 import '../../presentation/home/view/support_center_request_screen.dart';
 import '../../presentation/home/view/support_center_screen.dart';
-import '../../presentation/home/view/watch_video_screen.dart';
+import '../../presentation/watch_video/view/watch_video_screen.dart';
 import '../../presentation/lead/view/preview_screen.dart';
 import '../../presentation/notification/view/notification_screen.dart';
 import '../../presentation/profile/view/profile_screen.dart';

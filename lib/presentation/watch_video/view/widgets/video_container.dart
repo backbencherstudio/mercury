@@ -9,7 +9,22 @@ import '../../../../core/constansts/icon_manager.dart';
 import '../../../../core/resource/style_manager.dart';
 
 class VideoContainer extends StatefulWidget {
-  const VideoContainer({super.key});
+  final String videoUrl;
+  final String title;
+  final String subtitle;
+  final String description;
+  final String durationText;
+  final int unskippableDuration;
+
+  const VideoContainer({
+    super.key,
+    required this.videoUrl,
+    required this.title,
+    required this.subtitle,
+    required this.description,
+    required this.durationText,
+    required this.unskippableDuration,
+  });
 
   @override
   State<VideoContainer> createState() => _VideoContainerState();
@@ -18,16 +33,17 @@ class VideoContainer extends StatefulWidget {
 class _VideoContainerState extends State<VideoContainer> {
   late VideoPlayerController _videoController;
   ChewieController? _chewieController;
+  int _maxPlayedSeconds = 0;
 
   @override
   void initState() {
     super.initState();
 
     _videoController = VideoPlayerController.networkUrl(
-      Uri.parse(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-      ),
+      Uri.parse(widget.videoUrl),
     );
+
+    _videoController.addListener(_videoListener);
 
     _videoController.initialize().then((_) {
       _chewieController = ChewieController(
@@ -50,8 +66,27 @@ class _VideoContainerState extends State<VideoContainer> {
     });
   }
 
+  void _videoListener() {
+    if (!_videoController.value.isInitialized) return;
+
+    final currentPosition = _videoController.value.position.inSeconds;
+
+    // Prevent skipping forward if user hasn't passed the unskippable duration organically
+    if (currentPosition > _maxPlayedSeconds + 1) {
+      if (_maxPlayedSeconds < widget.unskippableDuration) {
+        _videoController.seekTo(Duration(seconds: _maxPlayedSeconds));
+        return;
+      }
+    }
+
+    if (currentPosition > _maxPlayedSeconds) {
+      _maxPlayedSeconds = currentPosition;
+    }
+  }
+
   @override
   void dispose() {
+    _videoController.removeListener(_videoListener);
     _chewieController?.dispose();
     _videoController.dispose();
     super.dispose();
@@ -96,7 +131,7 @@ class _VideoContainerState extends State<VideoContainer> {
           Row(
             children: [
               Text(
-                'How to get started',
+                widget.title,
                 style: getMedium500Style18(color: ColorManager.black500),
               ),
               const Spacer(),
@@ -107,7 +142,7 @@ class _VideoContainerState extends State<VideoContainer> {
               ),
               4.horizontalSpace,
               Text(
-                '45 min',
+                widget.durationText,
                 style: getRegular400Style14(
                   color: ColorManager.black400,
                   height: 1.5,
@@ -130,14 +165,14 @@ class _VideoContainerState extends State<VideoContainer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Introduction to Agua Lead',
+                  widget.subtitle,
                   style: getMedium500Style14(
                     color: ColorManager.blueText,
                   ),
                 ),
                 12.verticalSpace,
                 Text(
-                  'This video contains on how to use this app. You will find detail direction on this video.',
+                  widget.description,
                   style: getRegular400Style12(
                     color: ColorManager.black400,
                   ),
