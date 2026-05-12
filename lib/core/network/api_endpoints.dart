@@ -13,4 +13,5 @@ class ApiEndpoints {
   static String connectionRequestDetail({required String id}) => 'connection-requests/$id';
   static String connectionRequestStatus({required String id,required String status}) => 'connection-requests/$id/$status';
   static const String createAndagetJob = 'jobs';
+  static const String notifications = 'admin/notification';
 }

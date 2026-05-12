@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mercury/core/resource/style_manager.dart';
+import 'package:mercury/core/resource/utils.dart';
 import 'package:mercury/presentation/widgets/custom_back_header.dart';
 
 import '../../../core/constansts/color_manger.dart';
 import '../../../core/constansts/icon_manager.dart';
+import '../viewmodel/notification_viewmodel.dart';
 
-class NotificationScreen extends StatefulWidget {
+class NotificationScreen extends ConsumerStatefulWidget {
   const NotificationScreen({super.key});
 
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  ConsumerState<NotificationScreen> createState() => _NotificationScreenState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class _NotificationScreenState extends ConsumerState<NotificationScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(notificationProvider.notifier).getNotifications();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final notifications = ref.watch(notificationProvider);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -47,8 +59,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
               Expanded(
                 child: ListView.separated(
-                  itemCount: 10,
+                  itemCount: notifications.length,
                   itemBuilder: (context, index) {
+                    final notification = notifications[index];
                     return ListTile(
                       leading: SvgPicture.asset(
                         IconManager.activity,
@@ -64,7 +77,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         ),
                       ),
                       title: Text(
-                        "ANew Connection Request",
+                        notification?.notificationEvent?.type ?? "",
                         style: getSemiBold600Style16(
                           color: ColorManager.titleText,
                         ),
@@ -73,7 +86,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "You have a new connection request. Please check it out!",
+                            notification?.notificationEvent?.text ?? "",
                             style: getRegular400Style14(
                               color: ColorManager.subtitleText,
                               height: 1.5,
@@ -81,7 +94,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                           8.verticalSpace,
                           Text(
-                            "10 min ago",
+                            Utils.calculateTimeAgo(
+                              notification?.createdAt ?? "",
+                            ),
                             style: getRegular400Style14(
                               color: ColorManager.subtitleText,
                             ),
