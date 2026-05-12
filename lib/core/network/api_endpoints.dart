@@ -16,4 +16,5 @@ class ApiEndpoints {
   static const String notifications = 'admin/notification';
   static const String giftcardStatus = 'giftcard/user-wise-gift';
   static const String supportRequest = 'support/request';
+  static const String watchVideo = 'onboarding';
 }
