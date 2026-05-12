@@ -6,7 +6,7 @@ import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/primary_button.dart';
 
 import '../../widgets/custom_back_header.dart';
-import 'gift_card.dart';
+import 'widgets/gift_card.dart';
 
 class RewardDetailScreen extends StatelessWidget {
   const RewardDetailScreen({super.key});

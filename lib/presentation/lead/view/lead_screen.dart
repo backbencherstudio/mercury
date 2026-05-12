@@ -114,6 +114,7 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
           _selectedTradeId = null;
         });
         ref.read(_files.notifier).state = [];
+        // ignore: use_build_context_synchronously
         Navigator.pushNamed(context, RouteName.addNewLeadSuccessScreen);
       }
     }

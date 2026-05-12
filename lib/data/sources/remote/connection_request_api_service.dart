@@ -58,8 +58,9 @@ class ConnectionRequestApiService {
     try {
       final token = await SharedPreferenceData.getToken();
       final headers = {'Authorization': 'Bearer $token'};
-      final response = await apiClient.getRequest(
-        endpoints: ApiEndpoints.connectionRequestStatus(id: id, status: status),
+      final response = await apiClient.patchRequest(
+        endpoints: ApiEndpoints.connectionRequestStatus(id: id),
+        body: {'status': status},
         headers: headers,
       );
 

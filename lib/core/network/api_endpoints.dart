@@ -11,7 +11,8 @@ class ApiEndpoints {
     'leads/lead-activity?startDate=$startDate&endDate=$endDate';
   static const String connectionRequestUserList = 'connection-requests/user/list';
   static String connectionRequestDetail({required String id}) => 'connection-requests/$id';
-  static String connectionRequestStatus({required String id,required String status}) => 'connection-requests/$id/$status';
+  static String connectionRequestStatus({required String id}) => 'connection-requests/$id/status';
   static const String createAndagetJob = 'jobs';
   static const String notifications = 'admin/notification';
+  static const String giftcardStatus = 'giftcard/user-wise-gift';
 }

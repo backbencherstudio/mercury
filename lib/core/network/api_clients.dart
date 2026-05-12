@@ -110,7 +110,7 @@ class ApiClient {
   Future<dynamic> patchRequest({
     required String endpoints,
     Map<String, dynamic>? body,
-    // Map<String, String>? headers,
+    Map<String, String>? headers,
     FormData? formData,
   }) async {
     try {

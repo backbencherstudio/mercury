@@ -204,18 +204,24 @@ class _ConnectionRequestScreenState
               SizedBox(height: 60.h),
               PrimaryButton(
                 title: 'I Know Someone',
-                onTap: () {
-                  ref
+                onTap: () async {
+                  final res = await ref
                       .read(connectionRequestStatusProvider.notifier)
                       .getConnectionRequestStatus(
                         id: widget.connectionRequestId,
                         status: "FULFILLED",
                       );
 
-                  Navigator.pushReplacementNamed(
-                    context,
-                    RouteName.fullfilledScreen,
-                  );
+                  if (res) {
+                    if (context.mounted) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        RouteName.fullfilledScreen,
+                      );
+                    }
+                  } else {
+                    Utils.showErrorToast(message: "Failed to update request");
+                  }
                 },
               ),
 
@@ -225,17 +231,24 @@ class _ConnectionRequestScreenState
                 containerColor: ColorManager.whiteColor,
                 border: Border.all(color: ColorManager.primary),
                 textStyle: getSemiBold600Style16(color: ColorManager.primary),
-                onTap: () {
-                  ref
+                onTap: () async {
+                  final res = await ref
                       .read(connectionRequestStatusProvider.notifier)
                       .getConnectionRequestStatus(
                         id: widget.connectionRequestId,
                         status: "CLOSED",
                       );
-                  Navigator.pushReplacementNamed(
-                    context,
-                    RouteName.availableScreen,
-                  );
+                  
+                  if (res) {
+                    if (context.mounted) {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        RouteName.availableScreen,
+                      );
+                    }
+                  } else {
+                    Utils.showErrorToast(message: "Failed to dismiss request");
+                  }
                 },
               ),
             ],
