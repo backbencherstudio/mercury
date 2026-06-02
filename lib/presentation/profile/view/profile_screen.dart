@@ -1,16 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mercury/core/resource/style_manager.dart';
 import 'package:mercury/presentation/widgets/custom_back_header.dart';
 import 'package:mercury/presentation/widgets/custom_network_image.dart';
 import '../../../core/constansts/color_manger.dart';
 import '../../../data/models/user_model.dart';
+import '../../home/viewmodel/get_user_viewmodel.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key, required this.user});
   final UserModel user;
+
+  @override
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(getUserProvider.notifier).getUser();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final userState = ref.watch(getUserProvider);
+    final user = userState.user.id != null ? userState.user : widget.user;
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -37,6 +56,12 @@ class ProfileScreen extends StatelessWidget {
               ),
               10.verticalSpace,
               Divider(thickness: 1, color: ColorManager.borderColor),
+              if (userState.isLoading)
+                const LinearProgressIndicator(
+                  minHeight: 2,
+                  color: ColorManager.primary,
+                  backgroundColor: Colors.transparent,
+                ),
               10.verticalSpace,
               Expanded(
                 child: SingleChildScrollView(

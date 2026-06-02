@@ -1,6 +1,6 @@
 class ApiEndpoints {
   static const String baseUrl =
-      "https://count-compare-always-christina.trycloudflare.com/api";
+      "https://backend.aqualeads.tech/api";
   static const String users = 'auth/register';
    static const String login = 'auth/login';
   static const String user = 'auth/me';

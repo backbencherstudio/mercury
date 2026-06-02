@@ -50,119 +50,136 @@ class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
                         .read(connectionRequestProvider.notifier)
                         .getConnectionRequest();
                   },
-                  child: ListView.builder(
-                    itemCount: connectionRequest.length,
-                    shrinkWrap: true,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final connectData = connectionRequest[index]!;
-                      return GestureDetector(
-                        onTap: () {
-                          if (connectData.status != "FULFILLED") {
-                            Navigator.pushNamed(
-                              context,
-                              RouteName.connectionRequestScreen,
-                              arguments: {'id': connectData.id},
-                            );
-                          } else {
-                            Utils.showToast(
-                              message: 'Request already fulfilled',
-                              backgroundColor: ColorManager.backgroundColor,
-                              textColor: ColorManager.whiteColor,
-                            );
-                          }
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: 16.h),
-                          child: Container(
-                            padding: EdgeInsets.all(16.w),
-                            decoration: BoxDecoration(
-                              color: ColorManager.backgroundDisabled,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      connectData.trade ?? "",
-                                      style: getSemiBold600Style20(
-                                        color: ColorManager.black500,
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 12.w,
-                                        vertical: 6.h,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: connectData.status == "FULFILLED"
-                                            ? ColorManager.backgroundPressed
-                                            : ColorManager.backgroundLight,
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Text(
-                                        connectData.status ?? "",
-                                        style: getRegular400Style12(
-                                          color:
-                                              connectData.status == "FULFILLED"
-                                              ? ColorManager.black400
-                                              : ColorManager.primary,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                  child: connectionRequest.isEmpty
+                      ? ListView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.6,
+                              child: Center(
+                                child: Text(
+                                  'No Connection Request',
+                                  style: getMedium500Style16(
+                                    color: ColorManager.black400,
+                                  ),
                                 ),
-                                12.verticalSpace,
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      IconManager.location,
-                                      height: 16.h,
-                                      width: 16.w,
-                                      colorFilter: ColorFilter.mode(
-                                        ColorManager.black400,
-                                        BlendMode.srcIn,
+                              ),
+                            ),
+                          ],
+                        )
+                      : ListView.builder(
+                          itemCount: connectionRequest.length,
+                          shrinkWrap: true,
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final connectData = connectionRequest[index]!;
+                            return GestureDetector(
+                              onTap: () {
+                                if (connectData.status != "FULFILLED") {
+                                  Navigator.pushNamed(
+                                    context,
+                                    RouteName.connectionRequestScreen,
+                                    arguments: {'id': connectData.id},
+                                  );
+                                } else {
+                                  Utils.showToast(
+                                    message: 'Request already fulfilled',
+                                    backgroundColor: ColorManager.backgroundColor,
+                                    textColor: ColorManager.whiteColor,
+                                  );
+                                }
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.only(bottom: 16.h),
+                                child: Container(
+                                  padding: EdgeInsets.all(16.w),
+                                  decoration: BoxDecoration(
+                                    color: ColorManager.backgroundDisabled,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            connectData.trade ?? "",
+                                            style: getSemiBold600Style20(
+                                              color: ColorManager.black500,
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 12.w,
+                                              vertical: 6.h,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: connectData.status == "FULFILLED"
+                                                  ? ColorManager.backgroundPressed
+                                                  : ColorManager.backgroundLight,
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              connectData.status ?? "",
+                                              style: getRegular400Style12(
+                                                color:
+                                                    connectData.status == "FULFILLED"
+                                                    ? ColorManager.black400
+                                                    : ColorManager.primary,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    5.horizontalSpace,
-                                    Text(
-                                      connectData.location ?? "",
-                                      style: getRegular400Style12(
-                                        color: ColorManager.black400,
-                                      ),
-                                    ),
-                                    20.horizontalSpace,
+                                      12.verticalSpace,
+                                      Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                            IconManager.location,
+                                            height: 16.h,
+                                            width: 16.w,
+                                            colorFilter: ColorFilter.mode(
+                                              ColorManager.black400,
+                                              BlendMode.srcIn,
+                                            ),
+                                          ),
+                                          5.horizontalSpace,
+                                          Text(
+                                            connectData.location ?? "",
+                                            style: getRegular400Style12(
+                                              color: ColorManager.black400,
+                                            ),
+                                          ),
+                                          20.horizontalSpace,
 
-                                    SvgPicture.asset(
-                                      IconManager.clock,
-                                      height: 16.h,
-                                      width: 16.w,
-                                      colorFilter: ColorFilter.mode(
-                                        ColorManager.black400,
-                                        BlendMode.srcIn,
+                                          SvgPicture.asset(
+                                            IconManager.clock,
+                                            height: 16.h,
+                                            width: 16.w,
+                                            colorFilter: ColorFilter.mode(
+                                              ColorManager.black400,
+                                              BlendMode.srcIn,
+                                            ),
+                                          ),
+                                          5.horizontalSpace,
+                                          Text(
+                                            Utils.calculateTimeAgo(
+                                              connectData.timeAgo ?? '',
+                                            ),
+                                            style: getRegular400Style12(
+                                              color: ColorManager.black400,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    5.horizontalSpace,
-                                    Text(
-                                      Utils.calculateTimeAgo(
-                                        connectData.timeAgo ?? '',
-                                      ),
-                                      style: getRegular400Style12(
-                                        color: ColorManager.black400,
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
               ),
             ],
