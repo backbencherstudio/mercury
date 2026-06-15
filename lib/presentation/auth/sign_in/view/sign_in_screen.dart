@@ -1,9 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mercury/presentation/widgets/primary_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/constansts/color_manger.dart';
 import '../../../../core/resource/style_manager.dart';
+import '../../../../core/resource/utils.dart';
 import '../../../../core/route/route_name.dart';
 import '../viewmodel/auth_viewmodel.dart';
 import '../viewmodel/is_password_show_provider.dart';
@@ -19,12 +22,27 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late TapGestureRecognizer _termsTapRecognizer;
+
+  @override
+  void initState() {
+    super.initState();
+    _termsTapRecognizer = TapGestureRecognizer()..onTap = _launchTermsUrl;
+  }
 
   @override
   void dispose() {
     _userNameController.dispose();
     _passwordController.dispose();
+    _termsTapRecognizer.dispose();
     super.dispose();
+  }
+
+  void _launchTermsUrl() async {
+    final Uri url = Uri.parse('https://aqualeads.netlify.app/terms-of-use');
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      Utils.showErrorToast(message: "Could not launch Terms & Conditions");
+    }
   }
 
   @override
@@ -69,7 +87,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                       20.verticalSpace,
 
                       Text(
-                        "Agua Leads",
+                        "Aqua Leads",
                         style: getSemiBold600Style32(
                           color: ColorManager.blackColor,
                         ),
@@ -184,6 +202,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                               ),
                               TextSpan(
                                 text: "Terms & Conditions",
+                                recognizer: _termsTapRecognizer,
                                 style: getMedium500Style14(
                                   color: ColorManager.backgroundColor,
                                 ),
@@ -201,6 +220,12 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     title: 'Login',
                     isLoading: ref.watch(authProvider),
                     onTap: () async {
+                      if (!isCheck) {
+                        Utils.showErrorToast(
+                          message: "Please agree to the Terms & Conditions",
+                        );
+                        return;
+                      }
                       if (_formKey.currentState!.validate()) {
                         final res = await ref
                             .read(authProvider.notifier)

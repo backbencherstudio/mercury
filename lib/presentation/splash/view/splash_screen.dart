@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
             20.verticalSpace,
             Text(
-              "Agua Leads",
+              "Aqua Leads",
               style: getSemiBold600Style32(color: ColorManager.whiteColor),
             ),
             8.verticalSpace,
