@@ -1,4 +1,4 @@
-package com.example.mercury
+package com.aqualeads.app
 
 import io.flutter.embedding.android.FlutterActivity
 
