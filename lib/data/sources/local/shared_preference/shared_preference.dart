@@ -149,7 +149,7 @@ class SharedPreferenceData {
     return prefs.getString('language');
   }
 
-  // ===== CLEAR ALL =====
+  // ===== CLEAR ALL =====     
   /// Clears all stored preferences. Useful for logout.
   static Future<void> clearAll() async {
     final prefs = await SharedPreferences.getInstance();

@@ -7,6 +7,8 @@ import 'package:mercury/presentation/widgets/custom_network_image.dart';
 import '../../../core/constansts/color_manger.dart';
 import '../../../data/models/user_model.dart';
 import '../../home/viewmodel/get_user_viewmodel.dart';
+import '../../../data/sources/local/shared_preference/shared_preference.dart';
+import '../../../core/route/route_name.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key, required this.user});
@@ -255,6 +257,33 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         ),
                       ),
 
+                      40.verticalSpace,
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50.h,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            await SharedPreferenceData.clearAll();
+                            if (context.mounted) {
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                RouteName.signInScreen,
+                                (route) => false,
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorManager.primary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                          ),
+                          child: Text(
+                            "Logout",
+                            style: getMedium500Style16(color: Colors.white),
+                          ),
+                        ),
+                      ),
                       40.verticalSpace,
                     ],
                   ),
