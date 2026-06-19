@@ -109,7 +109,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Username",
+                      "Email or Username",
                       style: getMedium500Style16(color: ColorManager.black500),
                     ),
                   ),
@@ -119,15 +119,16 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   TextFormField(
                     controller: _userNameController,
                     textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.emailAddress,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Enter your username";
+                        return "Enter your email or username";
                       }
                       return null;
                     },
                     decoration: const InputDecoration(
-                      hintText: "Enter your username",
+                      hintText: "Enter your email or username",
                     ),
                   ),
 

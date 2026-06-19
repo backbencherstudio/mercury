@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mercury/presentation/widgets/custom_back_header.dart';
@@ -25,7 +26,13 @@ class _WatchVideoScreenState extends ConsumerState<WatchVideoScreen> {
   @override
   Widget build(BuildContext context) {
     final watchVideo = ref.watch(watchVideoProvider);
-    return Scaffold(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+      child: Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -85,6 +92,7 @@ class _WatchVideoScreenState extends ConsumerState<WatchVideoScreen> {
                         ),
             ],
           ),
+        ),
         ),
       ),
     );

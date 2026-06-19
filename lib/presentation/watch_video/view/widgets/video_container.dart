@@ -34,6 +34,8 @@ class _VideoContainerState extends State<VideoContainer> {
   late VideoPlayerController _videoController;
   ChewieController? _chewieController;
   int _maxPlayedSeconds = 0;
+  bool _hasError = false;
+  
   @override
   void initState() {
     super.initState();
@@ -46,7 +48,13 @@ class _VideoContainerState extends State<VideoContainer> {
 
     _videoController.initialize().then((_) {
       _initChewieController();
-      setState(() {});
+      if (mounted) setState(() {});
+    }).catchError((error) {
+      if (mounted) {
+        setState(() {
+          _hasError = true;
+        });
+      }
     });
   }
 
@@ -116,20 +124,39 @@ class _VideoContainerState extends State<VideoContainer> {
         children: [
           /// 🔥 VIDEO WITH CHEWIE
           Center(
-            child:
-                _chewieController != null &&
-                    _chewieController!.videoPlayerController.value.isInitialized
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(12.r),
-                    child: SizedBox(
-                      height: 200.h,
-                      child: Chewie(controller: _chewieController!),
+            child: _hasError
+                ? Container(
+                    height: 180.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: ColorManager.borderColor,
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.video_library_outlined, size: 40.sp, color: ColorManager.black300),
+                        8.verticalSpace,
+                        Text(
+                          "Video not available",
+                          style: getMedium500Style14(color: ColorManager.black400),
+                        ),
+                      ],
                     ),
                   )
-                : SizedBox(
-                    height: 180.h,
-                    child: const Center(child: CircularProgressIndicator()),
-                  ),
+                : _chewieController != null &&
+                        _chewieController!.videoPlayerController.value.isInitialized
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(12.r),
+                        child: SizedBox(
+                          height: 200.h,
+                          child: Chewie(controller: _chewieController!),
+                        ),
+                      )
+                    : SizedBox(
+                        height: 180.h,
+                        child: const Center(child: CircularProgressIndicator()),
+                      ),
           ),
 
           8.verticalSpace,
