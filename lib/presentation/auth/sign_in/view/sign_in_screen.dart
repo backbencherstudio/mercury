@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mercury/presentation/widgets/primary_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/constansts/color_manger.dart';
@@ -23,6 +25,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late TapGestureRecognizer _termsTapRecognizer;
+  DateTime? _lastPressedAt;
 
   @override
   void initState() {
@@ -50,8 +53,22 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     final isPassword = ref.watch(passwordVisibilityProvider);
     final isCheck = ref.watch(toggleCheckBoxProvider);
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+
+        final now = DateTime.now();
+        if (_lastPressedAt == null ||
+            now.difference(_lastPressedAt!) > const Duration(seconds: 2)) {
+          _lastPressedAt = now;
+          Fluttertoast.showToast(msg: "Tap again to exit");
+          return;
+        }
+
+        SystemNavigator.pop();
+      },
+      child: Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.r),
         child: SingleChildScrollView(
@@ -109,7 +126,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Username",
+                      "Email or Username",
                       style: getMedium500Style16(color: ColorManager.black500),
                     ),
                   ),
@@ -119,15 +136,16 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   TextFormField(
                     controller: _userNameController,
                     textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.emailAddress,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Enter your username";
+                        return "Enter your email or username";
                       }
                       return null;
                     },
                     decoration: const InputDecoration(
-                      hintText: "Enter your username",
+                      hintText: "Enter your email or username",
                     ),
                   ),
 
@@ -235,9 +253,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                             );
                         if (res.isSuccess) {
                           if (!context.mounted) return;
-                          Navigator.pushNamed(
+                          Navigator.pushNamedAndRemoveUntil(
                             context,
                             RouteName.bottomNavScreen,
+                            (route) => false,
                           );
                         }
                       }
@@ -255,6 +274,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }
