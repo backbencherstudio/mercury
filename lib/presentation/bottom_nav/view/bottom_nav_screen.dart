@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../core/constansts/color_manger.dart';
 import '../../activity/view/activity_screen.dart';
 import '../../connection/view/connection_screen.dart';
@@ -8,9 +10,14 @@ import '../../home/view/home_screen.dart';
 import '../../lead/view/lead_screen.dart';
 import '../viewmodel/bottom_nav_provider.dart';
 
-class BottomNavScreen extends ConsumerWidget {
+class BottomNavScreen extends ConsumerStatefulWidget {
   const BottomNavScreen({super.key});
 
+  @override
+  ConsumerState<BottomNavScreen> createState() => _BottomNavScreenState();
+}
+
+class _BottomNavScreenState extends ConsumerState<BottomNavScreen> {
   static const List<Widget> _screens = [
     HomeScreen(),
     LeadScreen(),
@@ -18,13 +25,35 @@ class BottomNavScreen extends ConsumerWidget {
     ConnectionScreen(),
   ];
 
+  DateTime? _lastPressedAt;
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final currentIndex = ref.watch(bottomNavIndexProvider);
 
-    return Scaffold(
-      extendBody: true,
-      body: IndexedStack(index: currentIndex, children: _screens),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+
+        if (currentIndex != 0) {
+          ref.read(bottomNavIndexProvider.notifier).setIndex(0);
+          return;
+        }
+
+        final now = DateTime.now();
+        if (_lastPressedAt == null ||
+            now.difference(_lastPressedAt!) > const Duration(seconds: 2)) {
+          _lastPressedAt = now;
+          Fluttertoast.showToast(msg: "Tap again to exit");
+          return;
+        }
+
+        SystemNavigator.pop();
+      },
+      child: Scaffold(
+        extendBody: true,
+        body: IndexedStack(index: currentIndex, children: _screens),
 
       bottomNavigationBar: Container(
         margin: EdgeInsets.all(16.r),
@@ -75,7 +104,7 @@ class BottomNavScreen extends ConsumerWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 
   /// 🔥 FIXED NAV ITEM (ALL SAME SHAPE)

@@ -5,8 +5,17 @@ import 'package:mercury/core/route/route_import_part.dart';
 import 'core/resource/theme_manager.dart';
 import 'core/route/route_name.dart';
 
+import 'package:flutter/services.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ),
+  );
   runApp(const ProviderScope(child: MyApp()));
 }
 

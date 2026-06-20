@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -125,8 +126,14 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
     final filesList = ref.watch(_files);
     final tradesAsync = ref.watch(tradesProvider);
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -419,6 +426,7 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
               ),
             ],
           ),
+        ),
         ),
       ),
     );
