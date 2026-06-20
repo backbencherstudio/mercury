@@ -71,7 +71,32 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
                         .read(notificationProvider.notifier)
                         .getNotifications();
                   },
-                  child: ListView.separated(
+                  child: notifications.isEmpty
+                      ? SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.7,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.notifications_off_outlined,
+                                  size: 64.sp,
+                                  color: ColorManager.black400,
+                                ),
+                                16.verticalSpace,
+                                Text(
+                                  "No notifications yet",
+                                  style: getMedium500Style16(
+                                    color: ColorManager.black400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : ListView.separated(
                     itemCount: notifications.length,
                     itemBuilder: (context, index) {
                       final notification = notifications[index];

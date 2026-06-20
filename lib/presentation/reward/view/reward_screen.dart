@@ -92,22 +92,38 @@ class _RewardScreenState extends ConsumerState<RewardScreen> {
               15.verticalSpace,
               // Gift Cards List
               Expanded(
-                child: giftCards.isEmpty
-                    ? Center(
-                        child: Text(
-                          "No rewards found.",
-                          style: getRegular400Style16(
-                            color: ColorManager.black400,
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    await ref
+                        .read(giftCardProvider.notifier)
+                        .getGiftCardStatus();
+                  },
+                  child: giftCards.isEmpty
+                      ? SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          child: Container(
+                            height: 300.h,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.card_giftcard_outlined,
+                                  size: 64.sp,
+                                  color: ColorManager.black400,
+                                ),
+                                16.verticalSpace,
+                                Text(
+                                  "No rewards found",
+                                  style: getMedium500Style16(
+                                    color: ColorManager.black400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                    : RefreshIndicator(
-                        onRefresh: () async {
-                          await ref
-                              .read(giftCardProvider.notifier)
-                              .getGiftCardStatus();
-                        },
-                        child: ListView.builder(
+                        )
+                      : ListView.builder(
                           itemCount: giftCards.length,
                           itemBuilder: (context, index) {
                             final card = giftCards[index];
@@ -172,8 +188,7 @@ class _RewardScreenState extends ConsumerState<RewardScreen> {
             ],
           ),
         ),
-        ),
       ),
-    );
+    ));
   }
 }

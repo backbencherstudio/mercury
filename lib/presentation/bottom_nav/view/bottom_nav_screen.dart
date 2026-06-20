@@ -122,6 +122,7 @@ class _BottomNavScreenState extends ConsumerState<BottomNavScreen> {
 
     return GestureDetector(
       onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
         ref.read(bottomNavIndexProvider.notifier).setIndex(index);
       },
       behavior: HitTestBehavior.opaque,

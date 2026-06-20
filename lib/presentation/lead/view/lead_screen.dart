@@ -85,6 +85,7 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
   }
 
   Future<void> _submitForm() async {
+    FocusManager.instance.primaryFocus?.unfocus();
     if (_formKey.currentState!.validate()) {
       if (ref.read(_files).isEmpty) {
         Utils.showToast(
@@ -142,6 +143,7 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
               CustomBackHeader(
                 title: "Add New Lead",
                 onBackTap: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
                   ref.read(bottomNavIndexProvider.notifier).setIndex(0);
                 },
               ),
@@ -380,6 +382,7 @@ class _LeadScreenState extends ConsumerState<LeadScreen> {
                             color: ColorManager.backgroundDark,
                           ),
                           onTap: () async {
+                            FocusManager.instance.primaryFocus?.unfocus();
                             String? tradeName = _selectedTradeId;
                             if (tradesAsync.hasValue) {
                               final selected = tradesAsync.value!

@@ -58,21 +58,29 @@ class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
                         .getConnectionRequest();
                   },
                   child: connectionRequest.isEmpty
-                      ? ListView(
+                      ? SingleChildScrollView(
                           physics: const AlwaysScrollableScrollPhysics(),
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.6,
-                              child: Center(
-                                child: Text(
-                                  'No Connection Request',
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.7,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.group_off_outlined,
+                                  size: 64.sp,
+                                  color: ColorManager.black400,
+                                ),
+                                16.verticalSpace,
+                                Text(
+                                  "No Connection Request",
                                   style: getMedium500Style16(
                                     color: ColorManager.black400,
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
                         )
                       : ListView.builder(
                           itemCount: connectionRequest.length,
@@ -192,8 +200,7 @@ class _ConnectionScreenState extends ConsumerState<ConnectionScreen> {
             ],
           ),
         ),
-        ),
       ),
-    );
+    ));
   }
 }
