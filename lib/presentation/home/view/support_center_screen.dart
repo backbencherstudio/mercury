@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mercury/core/constansts/color_manger.dart';
@@ -19,8 +20,14 @@ class SupportCenterScreen extends ConsumerStatefulWidget {
 class _SupportCenterScreenState extends ConsumerState<SupportCenterScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+      child: Scaffold(
+        body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
@@ -93,6 +100,6 @@ class _SupportCenterScreenState extends ConsumerState<SupportCenterScreen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }
